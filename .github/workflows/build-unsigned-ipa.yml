@@ -17,8 +17,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: List available Xcode versions (for debugging)
+        run: ls /Applications | grep Xcode
+
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer || sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+        # Deliberately use the runner's default-symlinked Xcode.app rather than
+        # pinning to a specific Xcode_X.Y.app. GitHub's macOS runner images
+        # only fully provision matching iOS Simulator runtimes for whichever
+        # Xcode is symlinked as the default — other side-by-side pinned
+        # versions can be missing that data, which causes actool (the asset
+        # catalog compiler) to fail with "No simulator runtime version ...
+        # available" even though this is a device-only, simulator-free build.
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 
       - name: Show Xcode version
         run: xcodebuild -version

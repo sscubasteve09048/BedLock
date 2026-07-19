@@ -1,0 +1,56 @@
+name: Build Unsigned IPA (for Sideloadly / AltStore)
+
+# This workflow needs NO Apple Developer account, no certificates, and no
+# provisioning profiles. It builds BedLock with code signing turned off
+# entirely, then packages the raw .app into a standard IPA zip structure.
+# Tools like Sideloadly or AltStore do the actual signing themselves, using
+# your own free Apple ID, at install time on your own computer.
+on:
+  workflow_dispatch:
+
+jobs:
+  build-unsigned:
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer || sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Archive without code signing
+        run: |
+          set -e
+          xcodebuild -project BedLock.xcodeproj \
+            -scheme BedLock \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -archivePath "$RUNNER_TEMP/BedLock.xcarchive" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            DEVELOPMENT_TEAM="" \
+            archive
+
+      - name: Package as IPA
+        run: |
+          set -e
+          cd "$RUNNER_TEMP"
+          mkdir -p Payload
+          cp -r "BedLock.xcarchive/Products/Applications/BedLock.app" Payload/
+          zip -r BedLock-unsigned.ipa Payload
+          mkdir -p "$GITHUB_WORKSPACE/build_output"
+          cp BedLock-unsigned.ipa "$GITHUB_WORKSPACE/build_output/"
+
+      - name: Upload unsigned IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BedLock-unsigned-ipa
+          path: build_output/BedLock-unsigned.ipa
+          retention-days: 14

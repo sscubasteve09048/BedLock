@@ -1,0 +1,31 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# CocoaPods (not used here, but harmless to ignore)
+Pods/
+
+# Fastlane / signing artifacts
+*.mobileprovision
+*.p12
+*.cer
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# IPA build output
+*.ipa
+build_output/
+
+# macOS
+.DS_Store

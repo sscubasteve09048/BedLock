@@ -1,0 +1,716 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4A42CFC86E2B4486A5A4CABD /* BedLockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D9BC64A1743329FA37FAF /* BedLockApp.swift */; };
+		A6A30BAA1E504C439110567C /* AppLockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056960704D446A595DE83EB /* AppLockManager.swift */; };
+		0DDDDBB658824D7EA6718BEC /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB7C6A583EF46D183BB7A82 /* ScheduleManager.swift */; };
+		8C6B340B15364D30BE3CDC3C /* ScreenTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CA61CACF3344B794B805CD /* ScreenTimeManager.swift */; };
+		701BE930BF244B5DBA66A63E /* BedVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF1866AF924C7EB77B4667 /* BedVerificationService.swift */; };
+		22833717EDE14B7EA6D779E3 /* BedVerifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F80C74A6464D64A63E21B0 /* BedVerifying.swift */; };
+		F85AFB6F7BA3476681E4ABC0 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7917457EE64EAFBBAF8EBF /* CameraService.swift */; };
+		04EABA02BEF449519C053D72 /* CoreMLBedVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13344E8C0864F3E9CB365C9 /* CoreMLBedVerificationService.swift */; };
+		63FCFF898B4A43909FAAED47 /* VisionBedVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E32BA02FED94D7B9DA7A77D /* VisionBedVerificationService.swift */; };
+		BD1233B40ABF4CB59E454CE9 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5515886F3BAB483192E604A1 /* AppRouter.swift */; };
+		57209F86660740B88956F098 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94A39E2E1445BA94C57E78 /* AppDependencies.swift */; };
+		9259A59C11FB4ED4BB3B6BC0 /* VerifyBedMadeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CFC335CE7A4EF7878E6445 /* VerifyBedMadeIntent.swift */; };
+		7848B2132CE240A18D7ACEDC /* AppSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC42E878AAB4FD7AEBA9052 /* AppSelectionViewModel.swift */; };
+		1AFA524BF2054E44B5D6176F /* CameraVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D862F68AD57F46E49563BE95 /* CameraVerificationViewModel.swift */; };
+		BBC348116D82411A85138974 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EBD6298CFD433499F26066 /* DashboardViewModel.swift */; };
+		49D5AB6DE55A4F6A9540C574 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9176223A352A452B8DD08611 /* HistoryViewModel.swift */; };
+		873F7AC7E2D14093B224300E /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A27DA1FD7248E48049C1F8 /* ScheduleViewModel.swift */; };
+		F36CC141443E424B89C38060 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB00B994B594945B5F65CC9 /* SettingsViewModel.swift */; };
+		7C27FC10201C4601A4818FA7 /* AppSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5BA281987349B6A4012AEF /* AppSelectionView.swift */; };
+		1CAB9D21034E46EFA448B74F /* CameraCaptureRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9C8059831249B18B8CAC70 /* CameraCaptureRepresentable.swift */; };
+		BFE257C16E1F4AEB9B2724D5 /* CameraVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF0B07BF934AE5A6800814 /* CameraVerificationView.swift */; };
+		7C65336A3F744B729F764558 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7713ECF6F3544AABFE87D67 /* ContentView.swift */; };
+		5B2A42B2DD9843D48FA5F900 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796329D0800E46E2BE80FEDC /* DashboardView.swift */; };
+		9653BFAAC7FB42F3969C0861 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E14314A15F94B24888BF379 /* HistoryView.swift */; };
+		464C605AD1B643D19F496C37 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CF014ED7B4B8F8DD5B368 /* ScheduleView.swift */; };
+		AD841324F0BF410B97827F19 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CABE07CA414A5399DE4BC7 /* SettingsView.swift */; };
+		E5E92642C6BF4821B1AAC869 /* AppSelectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3371F699F61444F1AC79E943 /* AppSelectionModel.swift */; };
+		0DB98463FDA34957A8974CA5 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CAFFB3E57849E5B18E070F /* ScheduleModel.swift */; };
+		80627708BBB2430E895E3220 /* UnlockHistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F526197CD3D49C183D2EF39 /* UnlockHistoryEntry.swift */; };
+		440D0FC1DD3841D4BCB7797E /* VerificationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682888FE06AE4A5DB9BAD71F /* VerificationResult.swift */; };
+		14331B6C7BEC409082692583 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0950F53AD4C45458C77254A /* NotificationService.swift */; };
+		CDFA15610B1C42A997163D47 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8856D66FA074B738BA729A7 /* PersistenceService.swift */; };
+		3FE312BA2B63413EAE6FB88D /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AEA315B094D0E97488CB7 /* SharedConstants.swift */; };
+		B5E14C47257D48D9AC489BC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8893B21B2CE041ECBA2A373A /* Assets.xcassets */; };
+		B39CEDA75EDB4747B3708086 /* AppSelectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3371F699F61444F1AC79E943 /* AppSelectionModel.swift */; };
+		13201DEAE8B945B6A9BB11F1 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CAFFB3E57849E5B18E070F /* ScheduleModel.swift */; };
+		92523072011344E2AD519B1C /* UnlockHistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F526197CD3D49C183D2EF39 /* UnlockHistoryEntry.swift */; };
+		E7725B819CEF4D6A95F4A367 /* VerificationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682888FE06AE4A5DB9BAD71F /* VerificationResult.swift */; };
+		94C1B079E8E64CE698EB44CD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0950F53AD4C45458C77254A /* NotificationService.swift */; };
+		0E3FDB4E661948D5B390A418 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8856D66FA074B738BA729A7 /* PersistenceService.swift */; };
+		CAC424F00B5C4E5A9EF6BA9A /* SharedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3AEA315B094D0E97488CB7 /* SharedConstants.swift */; };
+		3ACADD62BAA24C98922BBF74 /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC30616ABEF3492785803F64 /* DeviceActivityMonitorExtension.swift */; };
+		4227C5F4B3954322AE82AD86 /* FamilyControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F978CB6C7512433396A92DDD /* FamilyControls.framework */; };
+		1C74751874F945ACBEEBFB15 /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF2F2CCE28A42208621ED55 /* ManagedSettings.framework */; };
+		5596F05A2F47448CA137929A /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48582173FCCF419BBB800527 /* DeviceActivity.framework */; };
+		79F6FDDCCA384BC3B7FACF69 /* AppIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7BC179AD6B47189AC5AFBC /* AppIntents.framework */; };
+		0129FBDFD0C940AFB94BD53E /* FamilyControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F978CB6C7512433396A92DDD /* FamilyControls.framework */; };
+		56385A66E0BD4E838121431A /* ManagedSettings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF2F2CCE28A42208621ED55 /* ManagedSettings.framework */; };
+		D68DBC95A2E14F08A2EF7F34 /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48582173FCCF419BBB800527 /* DeviceActivity.framework */; };
+		623C5D9398A5416995745EEB /* BedLockMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1995E38765A247B18616527A /* BedLockMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		37EE6E4CFF914BFB9B22FC99 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE99DF0CF121400D87D824AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D11C70C30F3D425DBFAA4A56;
+			remoteInfo = BedLockMonitor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FB89574EFC27440FABBC39BC /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				623C5D9398A5416995745EEB /* BedLockMonitor.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		704D9BC64A1743329FA37FAF /* BedLockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedLockApp.swift; sourceTree = "<group>"; };
+		5056960704D446A595DE83EB /* AppLockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLockManager.swift; sourceTree = "<group>"; };
+		DDB7C6A583EF46D183BB7A82 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
+		D1CA61CACF3344B794B805CD /* ScreenTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeManager.swift; sourceTree = "<group>"; };
+		D7EF1866AF924C7EB77B4667 /* BedVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedVerificationService.swift; sourceTree = "<group>"; };
+		D8F80C74A6464D64A63E21B0 /* BedVerifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedVerifying.swift; sourceTree = "<group>"; };
+		FD7917457EE64EAFBBAF8EBF /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		E13344E8C0864F3E9CB365C9 /* CoreMLBedVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMLBedVerificationService.swift; sourceTree = "<group>"; };
+		5E32BA02FED94D7B9DA7A77D /* VisionBedVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionBedVerificationService.swift; sourceTree = "<group>"; };
+		5515886F3BAB483192E604A1 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		6E94A39E2E1445BA94C57E78 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		12CFC335CE7A4EF7878E6445 /* VerifyBedMadeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyBedMadeIntent.swift; sourceTree = "<group>"; };
+		6EC42E878AAB4FD7AEBA9052 /* AppSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionViewModel.swift; sourceTree = "<group>"; };
+		D862F68AD57F46E49563BE95 /* CameraVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVerificationViewModel.swift; sourceTree = "<group>"; };
+		23EBD6298CFD433499F26066 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		9176223A352A452B8DD08611 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		25A27DA1FD7248E48049C1F8 /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
+		2CB00B994B594945B5F65CC9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		DD5BA281987349B6A4012AEF /* AppSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionView.swift; sourceTree = "<group>"; };
+		1A9C8059831249B18B8CAC70 /* CameraCaptureRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureRepresentable.swift; sourceTree = "<group>"; };
+		EBAF0B07BF934AE5A6800814 /* CameraVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVerificationView.swift; sourceTree = "<group>"; };
+		B7713ECF6F3544AABFE87D67 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		796329D0800E46E2BE80FEDC /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		2E14314A15F94B24888BF379 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		B59CF014ED7B4B8F8DD5B368 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		92CABE07CA414A5399DE4BC7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3371F699F61444F1AC79E943 /* AppSelectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionModel.swift; sourceTree = "<group>"; };
+		C2CAFFB3E57849E5B18E070F /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
+		5F526197CD3D49C183D2EF39 /* UnlockHistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockHistoryEntry.swift; sourceTree = "<group>"; };
+		682888FE06AE4A5DB9BAD71F /* VerificationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationResult.swift; sourceTree = "<group>"; };
+		A0950F53AD4C45458C77254A /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		A8856D66FA074B738BA729A7 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		5F3AEA315B094D0E97488CB7 /* SharedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedConstants.swift; sourceTree = "<group>"; };
+		CC30616ABEF3492785803F64 /* DeviceActivityMonitorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityMonitorExtension.swift; sourceTree = "<group>"; };
+		8893B21B2CE041ECBA2A373A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DD73B5528ECE40CFBD2C61ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95D8E25E1E0F422E88B048B9 /* BedLock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BedLock.entitlements; sourceTree = "<group>"; };
+		6D4E7B788F244704B0B7CD03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		548BBC94CF1C4A47B96AC2CF /* BedLockMonitor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BedLockMonitor.entitlements; sourceTree = "<group>"; };
+		F978CB6C7512433396A92DDD /* FamilyControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FamilyControls.framework; path = System/Library/Frameworks/FamilyControls.framework; sourceTree = SDKROOT; };
+		4DF2F2CCE28A42208621ED55 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
+		48582173FCCF419BBB800527 /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
+		2C7BC179AD6B47189AC5AFBC /* AppIntents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppIntents.framework; path = System/Library/Frameworks/AppIntents.framework; sourceTree = SDKROOT; };
+		396C1DDC4DCC47B2825EC82A /* BedLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BedLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1995E38765A247B18616527A /* BedLockMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BedLockMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		274F181BB9BC402EBE098FF8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4227C5F4B3954322AE82AD86 /* FamilyControls.framework in Frameworks */,
+				1C74751874F945ACBEEBFB15 /* ManagedSettings.framework in Frameworks */,
+				5596F05A2F47448CA137929A /* DeviceActivity.framework in Frameworks */,
+				79F6FDDCCA384BC3B7FACF69 /* AppIntents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		796A79F6357D486ABAB7FAEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0129FBDFD0C940AFB94BD53E /* FamilyControls.framework in Frameworks */,
+				56385A66E0BD4E838121431A /* ManagedSettings.framework in Frameworks */,
+				D68DBC95A2E14F08A2EF7F34 /* DeviceActivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C6DC61B4BFF54F2396D0CCA4 = {
+			isa = PBXGroup;
+			children = (
+				30EF7334A38A4484A8AF404D /* BedLock */,
+				E948397AD143402FA8FE8163 /* BedLockMonitor */,
+				CBDB38C0497D474791760112 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CBDB38C0497D474791760112 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				396C1DDC4DCC47B2825EC82A /* BedLock.app */,
+				1995E38765A247B18616527A /* BedLockMonitor.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		48D23DD838AD458CAB0BCCCF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8893B21B2CE041ECBA2A373A /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0972056EC743461A8D806C31 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3371F699F61444F1AC79E943 /* AppSelectionModel.swift */,
+				C2CAFFB3E57849E5B18E070F /* ScheduleModel.swift */,
+				5F526197CD3D49C183D2EF39 /* UnlockHistoryEntry.swift */,
+				682888FE06AE4A5DB9BAD71F /* VerificationResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A2730E4623354A36BA2DF9ED /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				0972056EC743461A8D806C31 /* Models */,
+				A0950F53AD4C45458C77254A /* NotificationService.swift */,
+				A8856D66FA074B738BA729A7 /* PersistenceService.swift */,
+				5F3AEA315B094D0E97488CB7 /* SharedConstants.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		9E3B5808C9AB47BFAFA16C0F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5056960704D446A595DE83EB /* AppLockManager.swift */,
+				DDB7C6A583EF46D183BB7A82 /* ScheduleManager.swift */,
+				D1CA61CACF3344B794B805CD /* ScreenTimeManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		62590359CCF6446D845133FA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D7EF1866AF924C7EB77B4667 /* BedVerificationService.swift */,
+				D8F80C74A6464D64A63E21B0 /* BedVerifying.swift */,
+				FD7917457EE64EAFBBAF8EBF /* CameraService.swift */,
+				E13344E8C0864F3E9CB365C9 /* CoreMLBedVerificationService.swift */,
+				5E32BA02FED94D7B9DA7A77D /* VisionBedVerificationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C8FDD521F9C341758709AD12 /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				5515886F3BAB483192E604A1 /* AppRouter.swift */,
+				6E94A39E2E1445BA94C57E78 /* AppDependencies.swift */,
+				12CFC335CE7A4EF7878E6445 /* VerifyBedMadeIntent.swift */,
+			);
+			path = Intents;
+			sourceTree = "<group>";
+		};
+		E19889C75E3343FFA212F2AA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6EC42E878AAB4FD7AEBA9052 /* AppSelectionViewModel.swift */,
+				D862F68AD57F46E49563BE95 /* CameraVerificationViewModel.swift */,
+				23EBD6298CFD433499F26066 /* DashboardViewModel.swift */,
+				9176223A352A452B8DD08611 /* HistoryViewModel.swift */,
+				25A27DA1FD7248E48049C1F8 /* ScheduleViewModel.swift */,
+				2CB00B994B594945B5F65CC9 /* SettingsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F548DBF4BDEE4EC2AB202EF1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD5BA281987349B6A4012AEF /* AppSelectionView.swift */,
+				1A9C8059831249B18B8CAC70 /* CameraCaptureRepresentable.swift */,
+				EBAF0B07BF934AE5A6800814 /* CameraVerificationView.swift */,
+				B7713ECF6F3544AABFE87D67 /* ContentView.swift */,
+				796329D0800E46E2BE80FEDC /* DashboardView.swift */,
+				2E14314A15F94B24888BF379 /* HistoryView.swift */,
+				B59CF014ED7B4B8F8DD5B368 /* ScheduleView.swift */,
+				92CABE07CA414A5399DE4BC7 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		30EF7334A38A4484A8AF404D /* BedLock */ = {
+			isa = PBXGroup;
+			children = (
+				704D9BC64A1743329FA37FAF /* BedLockApp.swift */,
+				9E3B5808C9AB47BFAFA16C0F /* Managers */,
+				62590359CCF6446D845133FA /* Services */,
+				C8FDD521F9C341758709AD12 /* Intents */,
+				E19889C75E3343FFA212F2AA /* ViewModels */,
+				F548DBF4BDEE4EC2AB202EF1 /* Views */,
+				A2730E4623354A36BA2DF9ED /* Shared */,
+				48D23DD838AD458CAB0BCCCF /* Resources */,
+				DD73B5528ECE40CFBD2C61ED /* Info.plist */,
+				95D8E25E1E0F422E88B048B9 /* BedLock.entitlements */,
+			);
+			path = BedLock;
+			sourceTree = "<group>";
+		};
+		E948397AD143402FA8FE8163 /* BedLockMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				CC30616ABEF3492785803F64 /* DeviceActivityMonitorExtension.swift */,
+				6D4E7B788F244704B0B7CD03 /* Info.plist */,
+				548BBC94CF1C4A47B96AC2CF /* BedLockMonitor.entitlements */,
+			);
+			path = BedLockMonitor;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		57CE758DC4B5433B9095E402 /* BedLock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 107FED4CA8C44A33A486E5DC /* Build configuration list for PBXNativeTarget "BedLock" */;
+			buildPhases = (
+				31945090F8364F388F4B104C /* Sources */,
+				274F181BB9BC402EBE098FF8 /* Frameworks */,
+				D327A92A209040DDA6DF18E4 /* Resources */,
+				FB89574EFC27440FABBC39BC /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E233EDABFA664B0AB8BFFC37 /* PBXTargetDependency */,
+			);
+			name = BedLock;
+			productName = BedLock;
+			productReference = 396C1DDC4DCC47B2825EC82A /* BedLock.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D11C70C30F3D425DBFAA4A56 /* BedLockMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A006D210C1D3404794AC0D6F /* Build configuration list for PBXNativeTarget "BedLockMonitor" */;
+			buildPhases = (
+				74B4FA0116EF49B59B1FD173 /* Sources */,
+				796A79F6357D486ABAB7FAEA /* Frameworks */,
+				48A31735A00F4C2A8A889FF8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BedLockMonitor;
+			productName = BedLockMonitor;
+			productReference = 1995E38765A247B18616527A /* BedLockMonitor.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE99DF0CF121400D87D824AC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					57CE758DC4B5433B9095E402 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					D11C70C30F3D425DBFAA4A56 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 8D65CE65904548D586C039B3 /* Build configuration list for PBXProject "BedLock" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C6DC61B4BFF54F2396D0CCA4;
+			productRefGroup = CBDB38C0497D474791760112 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				57CE758DC4B5433B9095E402 /* BedLock */,
+				D11C70C30F3D425DBFAA4A56 /* BedLockMonitor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D327A92A209040DDA6DF18E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5E14C47257D48D9AC489BC8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48A31735A00F4C2A8A889FF8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		31945090F8364F388F4B104C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A42CFC86E2B4486A5A4CABD /* BedLockApp.swift in Sources */,
+				A6A30BAA1E504C439110567C /* AppLockManager.swift in Sources */,
+				0DDDDBB658824D7EA6718BEC /* ScheduleManager.swift in Sources */,
+				8C6B340B15364D30BE3CDC3C /* ScreenTimeManager.swift in Sources */,
+				701BE930BF244B5DBA66A63E /* BedVerificationService.swift in Sources */,
+				22833717EDE14B7EA6D779E3 /* BedVerifying.swift in Sources */,
+				F85AFB6F7BA3476681E4ABC0 /* CameraService.swift in Sources */,
+				04EABA02BEF449519C053D72 /* CoreMLBedVerificationService.swift in Sources */,
+				63FCFF898B4A43909FAAED47 /* VisionBedVerificationService.swift in Sources */,
+				BD1233B40ABF4CB59E454CE9 /* AppRouter.swift in Sources */,
+				57209F86660740B88956F098 /* AppDependencies.swift in Sources */,
+				9259A59C11FB4ED4BB3B6BC0 /* VerifyBedMadeIntent.swift in Sources */,
+				7848B2132CE240A18D7ACEDC /* AppSelectionViewModel.swift in Sources */,
+				1AFA524BF2054E44B5D6176F /* CameraVerificationViewModel.swift in Sources */,
+				BBC348116D82411A85138974 /* DashboardViewModel.swift in Sources */,
+				49D5AB6DE55A4F6A9540C574 /* HistoryViewModel.swift in Sources */,
+				873F7AC7E2D14093B224300E /* ScheduleViewModel.swift in Sources */,
+				F36CC141443E424B89C38060 /* SettingsViewModel.swift in Sources */,
+				7C27FC10201C4601A4818FA7 /* AppSelectionView.swift in Sources */,
+				1CAB9D21034E46EFA448B74F /* CameraCaptureRepresentable.swift in Sources */,
+				BFE257C16E1F4AEB9B2724D5 /* CameraVerificationView.swift in Sources */,
+				7C65336A3F744B729F764558 /* ContentView.swift in Sources */,
+				5B2A42B2DD9843D48FA5F900 /* DashboardView.swift in Sources */,
+				9653BFAAC7FB42F3969C0861 /* HistoryView.swift in Sources */,
+				464C605AD1B643D19F496C37 /* ScheduleView.swift in Sources */,
+				AD841324F0BF410B97827F19 /* SettingsView.swift in Sources */,
+				E5E92642C6BF4821B1AAC869 /* AppSelectionModel.swift in Sources */,
+				0DB98463FDA34957A8974CA5 /* ScheduleModel.swift in Sources */,
+				80627708BBB2430E895E3220 /* UnlockHistoryEntry.swift in Sources */,
+				440D0FC1DD3841D4BCB7797E /* VerificationResult.swift in Sources */,
+				14331B6C7BEC409082692583 /* NotificationService.swift in Sources */,
+				CDFA15610B1C42A997163D47 /* PersistenceService.swift in Sources */,
+				3FE312BA2B63413EAE6FB88D /* SharedConstants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74B4FA0116EF49B59B1FD173 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B39CEDA75EDB4747B3708086 /* AppSelectionModel.swift in Sources */,
+				13201DEAE8B945B6A9BB11F1 /* ScheduleModel.swift in Sources */,
+				92523072011344E2AD519B1C /* UnlockHistoryEntry.swift in Sources */,
+				E7725B819CEF4D6A95F4A367 /* VerificationResult.swift in Sources */,
+				94C1B079E8E64CE698EB44CD /* NotificationService.swift in Sources */,
+				0E3FDB4E661948D5B390A418 /* PersistenceService.swift in Sources */,
+				CAC424F00B5C4E5A9EF6BA9A /* SharedConstants.swift in Sources */,
+				3ACADD62BAA24C98922BBF74 /* DeviceActivityMonitorExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E233EDABFA664B0AB8BFFC37 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D11C70C30F3D425DBFAA4A56 /* BedLockMonitor */;
+			targetProxy = 37EE6E4CFF914BFB9B22FC99 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2E5B29B030514AD3BD32CA23 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E912BC945E2046D6B27F104B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		513F71CCCEAD4A5C88C0E3A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BedLock/BedLock.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BedLock/Info.plist;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bedlock.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A3012B8DD03147179DE21082 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BedLock/BedLock.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BedLock/Info.plist;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bedlock.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		8205F07A9B03468EB4FC0EFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				CODE_SIGN_ENTITLEMENTS = BedLockMonitor/BedLockMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BedLockMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bedlock.app.BedLockMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		8B3E2E4EFB4D499A931D6DE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				CODE_SIGN_ENTITLEMENTS = BedLockMonitor/BedLockMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BedLockMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bedlock.app.BedLockMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8D65CE65904548D586C039B3 /* Build configuration list for PBXProject "BedLock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E5B29B030514AD3BD32CA23 /* Debug */,
+				E912BC945E2046D6B27F104B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		107FED4CA8C44A33A486E5DC /* Build configuration list for PBXNativeTarget "BedLock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				513F71CCCEAD4A5C88C0E3A1 /* Debug */,
+				A3012B8DD03147179DE21082 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A006D210C1D3404794AC0D6F /* Build configuration list for PBXNativeTarget "BedLockMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8205F07A9B03468EB4FC0EFC /* Debug */,
+				8B3E2E4EFB4D499A931D6DE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = DE99DF0CF121400D87D824AC /* Project object */;
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Required to call FamilyControls/ManagedSettings/DeviceActivity APIs.
+	     This entitlement requires an Apple-approved Family Controls
+	     capability request for your Team ID before it will work on device. -->
+	<key>com.apple.developer.family-controls</key>
+	<true/>
+
+	<!-- Shared container so the main app and BedLockMonitor extension can read
+	     and write the same schedule/selection/history data. Replace with your
+	     own App Group identifier registered in your Apple Developer account. -->
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.bedlock.shared</string>
+	</array>
+</dict>
+</plist>

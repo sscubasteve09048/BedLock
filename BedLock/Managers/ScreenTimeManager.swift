@@ -66,20 +66,14 @@ final class ScreenTimeManager {
 
     /// Applies the shield: blocks the apps/categories described by `selection`.
     ///
-    /// NOTE ON A REAL API LIMITATION: `ShieldSettings.ActivityCategoryPolicy.all(except:)`
-    /// only accepts *category* tokens as exceptions, not individual `ApplicationToken`s.
-    /// That means a true "shield every app on the device except these three specific
-    /// apps" is not something ManagedSettings exposes directly — Apple's public API
-    /// only lets you except whole categories from an "all" shield, or shield a
-    /// specific explicit list of apps/categories. BedLock is transparent about this:
-    /// when "Block Everything Except Allowed" is selected, always-allowed *categories*
-    /// are reliably excluded; always-allowed *individual apps* are additionally
-    /// removed from any specific application shield below, but if the same app is
-    /// also covered by an all-categories shield it may still appear shielded. This
-    /// mirrors a genuine constraint of ManagedSettings, not a bug in this code.
+    /// `ShieldSettings.ActivityCategoryPolicy.all(except:)` takes *application*
+    /// tokens as its exception set (not category tokens, despite living on the
+    /// "categories" property) — so "shield every category on the device except
+    /// these specific apps" genuinely works as a single call. This is more
+    /// capable than an earlier version of this comment assumed.
     func applyRestrictions(selection: AppSelectionModel) {
         if selection.blockEverythingExceptAllowed {
-            store.shield.applicationCategories = .all(except: selection.alwaysAllowedSelection.categoryTokens)
+            store.shield.applicationCategories = .all(except: selection.alwaysAllowedSelection.applicationTokens)
             store.shield.applications = nil
         } else {
             // Only shield the apps/categories the user explicitly picked.

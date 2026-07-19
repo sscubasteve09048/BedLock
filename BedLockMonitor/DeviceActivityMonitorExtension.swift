@@ -27,7 +27,7 @@ final class DeviceActivityMonitorExtension: DeviceActivityMonitor {
         let selection = persistence.loadAppSelection()
 
         if selection.blockEverythingExceptAllowed {
-            store.shield.applicationCategories = .all(except: selection.alwaysAllowedSelection.categoryTokens)
+            store.shield.applicationCategories = .all(except: selection.alwaysAllowedSelection.applicationTokens)
             store.shield.applications = nil
         } else {
             store.shield.applications = selection.blockedSelection.applicationTokens

@@ -133,7 +133,7 @@ struct DashboardView: View {
             HStack {
                 Image(systemName: "calendar.badge.clock")
                     .font(.title2)
-                    .foregroundStyle(.accentColor)
+                    .foregroundStyle(Color.accentColor)
                     .frame(width: 44)
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Morning Schedule")

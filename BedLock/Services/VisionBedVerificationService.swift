@@ -7,21 +7,28 @@
 //
 //  Approach:
 //  1. `VNClassifyImageRequest` runs Apple's built-in general-purpose scene/object
-//     classifier (thousands of labels) to confirm the photo actually shows a bed
-//     or bedroom scene at all. This guards against someone pointing the camera at
-//     a random object to try to fake the unlock.
+//     classifier to confirm the photo plausibly shows a bed/bedroom/domestic
+//     interior. This uses *substring* matching against a broad keyword list
+//     across *all* returned observations (not just the single top label),
+//     because Apple's classifier vocabulary uses many different exact phrases
+//     ("four poster bed", "daybed", "linens", "bedclothes", etc.) and a strict
+//     exact-match against a short list badly under-recognizes real photos.
 //  2. `VNDetectRectanglesRequest` looks for large, well-defined flat rectangular
-//     surfaces. A neatly made bed tends to present large, high-confidence
-//     rectangular planes (the flattened comforter/sheet), whereas an unmade bed
-//     with bunched sheets and pillows produces fewer/lower-confidence rectangles.
-//     This is a pragmatic heuristic, not a trained "made vs. unmade" classifier.
-//  3. The two signals are combined into a single confidence score.
+//     surfaces as a mild secondary signal. This is intentionally weighted low
+//     and given a neutral (not punishing) fallback: rectangle detection is
+//     tuned for hard-edged geometry like documents and cards, and often finds
+//     nothing at all on soft fabric/bedding even when the bed is genuinely
+//     made — so an empty result should not tank the score.
+//  3. The two signals are combined as a weighted average with forgiving
+//     floors, not a multiplicative penalty, so a single weak signal doesn't
+//     crater an otherwise-good photo.
 //
-//  This is intentionally the *weakest* link in the pipeline and is designed to be
-//  swapped out: to upgrade accuracy, create a Core ML image classifier trained on
-//  made/unmade bed photos, drop the compiled `.mlmodelc` into the app bundle, and
-//  point `BedLockApp` at `CoreMLBedVerificationService` instead of this type. No
-//  other code needs to change because both conform to `BedVerifying`.
+//  This is intentionally the *weakest* link in the pipeline and is designed to
+//  be swapped out: to upgrade accuracy, create a Core ML image classifier
+//  trained on made/unmade bed photos, drop the compiled `.mlmodelc` into the
+//  app bundle, and point `BedLockApp` at `CoreMLBedVerificationService`
+//  instead of this type. No other code needs to change because both conform
+//  to `BedVerifying`.
 //
 import Foundation
 import UIKit
@@ -29,13 +36,24 @@ import Vision
 
 final class VisionBedVerificationService: BedVerifying {
 
-    /// Labels from Apple's built-in classifier that indicate the photo plausibly
-    /// contains a bed or bedroom. Apple's classifier vocabulary includes general
-    /// household/scene terms such as these.
-    private let bedRelatedIdentifiers: Set<String> = [
-        "bed", "beds", "bedroom", "bedding", "bedclothes", "blanket", "blankets",
-        "pillow", "pillows", "linen", "linens", "sheet", "sheets", "comforter",
-        "mattress", "quilt", "duvet", "furniture", "room"
+    /// Substrings (not exact matches) checked against every classification
+    /// identifier Vision returns. Deliberately broad — anything suggesting a
+    /// bed, bedding, or a bedroom-like domestic interior counts as a plausible
+    /// scene match, since Apple's classifier vocabulary is large and phrased
+    /// in ways that don't line up with a short exact-match list.
+    private let bedRelatedKeywords: [String] = [
+        "bed", "mattress", "pillow", "blanket", "linen", "sheet", "comforter",
+        "quilt", "duvet", "bedding", "bedclothes", "bedroom", "headboard",
+        "nightstand", "furniture", "textile", "fabric", "cushion", "room",
+        "interior", "curtain", "rug", "carpet", "home", "house", "apartment",
+        "indoor", "domestic"
+    ]
+
+    /// A tighter set of strong, unambiguous keywords. A confident match here
+    /// gets a small score boost, since these leave little doubt the photo
+    /// really is of a bed rather than just a bedroom-adjacent object.
+    private let strongKeywords: [String] = [
+        "bed", "mattress", "bedding", "bedclothes", "comforter", "duvet", "quilt"
     ]
 
     func verify(image: UIImage, threshold: Double) async throws -> VerificationResult {
@@ -48,9 +66,10 @@ final class VisionBedVerificationService: BedVerifying {
 
         let (scene, neatness) = try await (sceneScore, neatnessScore)
 
-        // Weighted blend: scene confirmation matters most (are we even looking at a
-        // bed?), neatness heuristic refines whether it looks "made".
-        let combined = (scene.confidence * 0.55) + (neatness * 0.45)
+        // Weighted average with forgiving floors — a weak rectangle-detection
+        // result shouldn't be able to drag down an otherwise confident scene
+        // match, and vice versa.
+        let combined = (scene.confidence * 0.75) + (neatness * 0.25)
         let clamped = min(max(combined, 0), 1)
 
         return VerificationResult(
@@ -69,7 +88,8 @@ final class VisionBedVerificationService: BedVerifying {
 
     private func classifyScene(cgImage: CGImage) async throws -> SceneClassification {
         try await withCheckedThrowingContinuation { continuation in
-            let request = VNClassifyImageRequest { request, error in
+            let request = VNClassifyImageRequest { [weak self] request, error in
+                guard let self else { return }
                 if let error {
                     continuation.resume(throwing: VerificationError.visionRequestFailed(error.localizedDescription))
                     return
@@ -80,23 +100,48 @@ final class VisionBedVerificationService: BedVerifying {
                     return
                 }
 
-                // Find the highest-confidence observation whose identifier matches
-                // a bed-related term. If none match, fall back to the top overall
-                // observation but heavily discount its confidence, since the photo
-                // likely isn't a bed at all.
-                let bedMatches = observations
-                    .filter { self.bedRelatedIdentifiers.contains($0.identifier.lowercased()) }
-                    .sorted { $0.confidence > $1.confidence }
+                // Search every returned observation (Vision typically returns
+                // hundreds, sorted by confidence) for any identifier that
+                // *contains* one of our keywords, rather than requiring an
+                // exact match on just the single top label.
+                var bestMatch: (confidence: Double, identifier: String, isStrong: Bool)?
 
-                if let best = bedMatches.first {
+                for observation in observations {
+                    let identifier = observation.identifier.lowercased()
+                    let confidence = Double(observation.confidence)
+
+                    let isStrong = self.strongKeywords.contains { identifier.contains($0) }
+                    let isMatch = isStrong || self.bedRelatedKeywords.contains { identifier.contains($0) }
+
+                    guard isMatch else { continue }
+
+                    if bestMatch == nil || confidence > bestMatch!.confidence {
+                        bestMatch = (confidence, observation.identifier, isStrong)
+                    }
+                }
+
+                if let match = bestMatch {
+                    // Apple's classifier tends to spread confidence across many
+                    // overlapping/co-occurring labels for a single scene, so a
+                    // "correct" match often reports a modest confidence even
+                    // when it's clearly right. Scale up a bit, more so for
+                    // strong/unambiguous keywords, and clamp to 1.0.
+                    let boost = match.isStrong ? 1.6 : 1.3
+                    let scaled = min(match.confidence * boost, 1.0)
                     continuation.resume(returning: SceneClassification(
-                        confidence: Double(best.confidence),
-                        label: best.identifier
+                        confidence: scaled,
+                        label: match.identifier
                     ))
                 } else {
+                    // No bed/bedroom-ish keyword anywhere in the results. This
+                    // is a genuine signal the photo probably isn't a bed, but
+                    // we still don't want to crush the score to near-zero on
+                    // its own — the neatness signal gets a chance to weigh in,
+                    // and a false negative here (e.g. an odd camera angle) is
+                    // far worse for the user than a slightly-too-lenient pass.
                     let top = observations.max(by: { $0.confidence < $1.confidence })
                     continuation.resume(returning: SceneClassification(
-                        confidence: Double(top?.confidence ?? 0) * 0.2,
+                        confidence: 0.35,
                         label: top?.identifier ?? "unknown"
                     ))
                 }
@@ -120,12 +165,13 @@ final class VisionBedVerificationService: BedVerifying {
                     continuation.resume(throwing: VerificationError.visionRequestFailed(error.localizedDescription))
                     return
                 }
-                guard let observations = request.results as? [VNRectangleObservation] else {
-                    continuation.resume(returning: 0)
-                    return
-                }
-                if observations.isEmpty {
-                    continuation.resume(returning: 0.2)
+                guard let observations = request.results as? [VNRectangleObservation],
+                      !observations.isEmpty else {
+                    // Soft bedding frequently produces no crisp rectangles at
+                    // all, even when neatly made — this is a weak, unreliable
+                    // signal, so "nothing found" gets a neutral score rather
+                    // than a penalty.
+                    continuation.resume(returning: 0.5)
                     return
                 }
 
@@ -137,21 +183,23 @@ final class VisionBedVerificationService: BedVerifying {
                 }
 
                 guard let largest else {
-                    continuation.resume(returning: 0.2)
+                    continuation.resume(returning: 0.5)
                     return
                 }
 
                 let areaScore = min(Self.area(of: largest) * 2.2, 1.0) // area is 0...1 of frame
                 let confidenceScore = Double(largest.confidence)
                 let combined = (areaScore * 0.6) + (confidenceScore * 0.4)
-                continuation.resume(returning: min(max(combined, 0), 1))
+                // Blend with the neutral floor so a single mediocre rectangle
+                // detection doesn't score much worse than "nothing detected".
+                continuation.resume(returning: max(min(combined, 1.0), 0.5))
             }
 
-            request.minimumAspectRatio = 0.3
+            request.minimumAspectRatio = 0.25
             request.maximumAspectRatio = 1.0
-            request.minimumSize = 0.15
-            request.minimumConfidence = 0.5
-            request.maximumObservations = 4
+            request.minimumSize = 0.1
+            request.minimumConfidence = 0.3
+            request.maximumObservations = 6
 
             let handler = VNImageRequestHandler(cgImage: cgImage, orientation: .up, options: [:])
             do {

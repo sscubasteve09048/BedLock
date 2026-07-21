@@ -90,7 +90,14 @@ final class PersistenceService {
     var verificationThreshold: Double {
         get {
             let stored = defaults.double(forKey: Keys.verificationThreshold)
-            return stored == 0 ? 0.85 : stored
+            // 0.6 is a more realistic default for the free heuristic verifier
+            // than a stricter value — Apple's general-purpose scene classifier
+            // rarely reports very high confidence even for a clear match, and
+            // treating this as a hard security gate isn't the goal; catching
+            // an obviously-not-a-bed photo is. Raise it in Settings if you
+            // want stricter checking, especially once a custom-trained model
+            // is in place (see CoreMLBedVerificationService.swift).
+            return stored == 0 ? 0.6 : stored
         }
         set { defaults.set(newValue, forKey: Keys.verificationThreshold) }
     }

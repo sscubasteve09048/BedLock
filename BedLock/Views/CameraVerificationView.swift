@@ -149,6 +149,10 @@ struct CameraVerificationView: View {
                     .foregroundStyle(success ? .green : .red)
             }
 
+            Text("Vision detected: \(result.label.capitalized)")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
             if success {
                 Button {
                     dismiss()

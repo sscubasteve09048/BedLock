@@ -2,8 +2,11 @@
 //  BedLockApp.swift
 //  BedLock
 //
-//  App entry point. Constructs the shared service/manager graph once and injects
-//  it down through the view hierarchy.
+//  App entry point. Constructs the shared service/manager graph once and
+//  injects it down through the view hierarchy. Note there's no Screen Time /
+//  Family Controls manager here — BedLock is a single-target app that works
+//  entirely on a free Apple ID. Pair it with iOS's native Screen Time →
+//  Downtime feature for actual app restriction (see FREE_LOCKING.md).
 //
 import SwiftUI
 
@@ -11,7 +14,6 @@ import SwiftUI
 struct BedLockApp: App {
 
     @State private var persistence: PersistenceService
-    @State private var screenTimeManager: ScreenTimeManager
     @State private var appLockManager: AppLockManager
     @State private var scheduleManager: ScheduleManager
 
@@ -19,10 +21,8 @@ struct BedLockApp: App {
 
     init() {
         let persistence = PersistenceService()
-        let screenTimeManager = ScreenTimeManager()
         _persistence = State(initialValue: persistence)
-        _screenTimeManager = State(initialValue: screenTimeManager)
-        _appLockManager = State(initialValue: AppLockManager(screenTimeManager: screenTimeManager, persistence: persistence))
+        _appLockManager = State(initialValue: AppLockManager(persistence: persistence))
         _scheduleManager = State(initialValue: ScheduleManager(persistence: persistence))
     }
 
@@ -30,22 +30,18 @@ struct BedLockApp: App {
         WindowGroup {
             ContentView()
                 .environment(persistence)
-                .environment(screenTimeManager)
                 .environment(appLockManager)
                 .environment(scheduleManager)
                 .environment(AppDependencies.shared.router)
                 .task {
-                    // Re-register the DeviceActivity schedule on launch in case
-                    // the user edited it while the app was terminated (e.g. via
-                    // Shortcuts automation is not supported, but this keeps the
-                    // schedule accurate after OS updates or reinstalls).
+                    // Re-register the reminder notifications on launch in case
+                    // the user edited the schedule while the app was terminated.
                     scheduleManager.applySchedule(persistence.loadSchedule())
                     _ = await NotificationService.shared.requestAuthorization()
                 }
                 .onChange(of: scenePhase) { _, newPhase in
                     if newPhase == .active {
                         appLockManager.syncWithSharedState()
-                        screenTimeManager.refreshAuthorizationStatus()
                     }
                 }
         }

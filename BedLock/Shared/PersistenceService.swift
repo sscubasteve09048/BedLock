@@ -2,15 +2,13 @@
 //  PersistenceService.swift
 //  BedLock
 //
-//  Centralizes all local persistence. Uses an App Group `UserDefaults` suite so
-//  that both the main app and the `BedLockMonitorExtension` (DeviceActivityMonitor
-//  target) read/write the same schedule, app selection, lock state, and history.
-//
-//  Replace `appGroupIdentifier` with your own App Group ID configured in both
-//  targets' Signing & Capabilities tab before building.
+//  Centralizes all local persistence using plain `UserDefaults`. BedLock is a
+//  single-target app with no extension process to share state with, so there's
+//  no need for an App Group container or any Screen Time entitlement here —
+//  everything in this file works on a completely free Apple ID with no
+//  Developer Program enrollment required.
 //
 import Foundation
-import FamilyControls
 import Observation
 
 /// Marked `@Observable` (even though its own stored properties rarely change)
@@ -19,11 +17,8 @@ import Observation
 @Observable
 final class PersistenceService {
 
-    static let appGroupIdentifier = "group.com.bedlock.shared"
-
     private enum Keys {
         static let schedule = "bedlock.schedule"
-        static let appSelection = "bedlock.appSelection"
         static let history = "bedlock.history"
         static let lastVerificationDate = "bedlock.lastVerificationDate"
         static let isRestrictionActive = "bedlock.isRestrictionActive"
@@ -33,7 +28,7 @@ final class PersistenceService {
     private let defaults: UserDefaults
 
     init() {
-        self.defaults = UserDefaults(suiteName: Self.appGroupIdentifier) ?? .standard
+        self.defaults = .standard
     }
 
     // MARK: - Schedule
@@ -49,21 +44,6 @@ final class PersistenceService {
     func saveSchedule(_ schedule: ScheduleModel) {
         guard let data = try? JSONEncoder().encode(schedule) else { return }
         defaults.set(data, forKey: Keys.schedule)
-    }
-
-    // MARK: - App selection
-
-    func loadAppSelection() -> AppSelectionModel {
-        guard let data = defaults.data(forKey: Keys.appSelection),
-              let decoded = try? JSONDecoder().decode(AppSelectionModel.self, from: data) else {
-            return .default
-        }
-        return decoded
-    }
-
-    func saveAppSelection(_ selection: AppSelectionModel) {
-        guard let data = try? JSONEncoder().encode(selection) else { return }
-        defaults.set(data, forKey: Keys.appSelection)
     }
 
     // MARK: - History
@@ -98,6 +78,10 @@ final class PersistenceService {
         set { defaults.set(newValue, forKey: Keys.lastVerificationDate) }
     }
 
+    /// Tracks BedLock's own notion of "locked" purely for the Dashboard/History
+    /// UI and habit-tracking — it does not itself restrict any other app. Real
+    /// app blocking is handled by iOS's native Screen Time Downtime feature,
+    /// configured directly in Settings (see FREE_LOCKING.md).
     var isRestrictionActive: Bool {
         get { defaults.bool(forKey: Keys.isRestrictionActive) }
         set { defaults.set(newValue, forKey: Keys.isRestrictionActive) }

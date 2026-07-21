@@ -46,8 +46,7 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environment(PersistenceService())
-        .environment(ScreenTimeManager())
-        .environment(AppLockManager(screenTimeManager: ScreenTimeManager(), persistence: PersistenceService()))
+        .environment(AppLockManager(persistence: PersistenceService()))
         .environment(ScheduleManager(persistence: PersistenceService()))
         .environment(AppRouter())
 }

@@ -2,61 +2,72 @@
 //  ScheduleManager.swift
 //  BedLock
 //
-//  Registers the user's morning schedule with `DeviceActivityCenter` so that the
-//  restriction begins automatically at the configured time, even if BedLock isn't
-//  running in the foreground. The actual shield is applied by
-//  `BedLockMonitorExtension` (a `DeviceActivityMonitor` extension target) when it
-//  receives `intervalDidStart`, because only code running in that extension's
-//  process is guaranteed to be woken up by the system at the scheduled time.
+//  Registers the user's morning schedule as repeating local notifications
+//  (`UNCalendarNotificationTrigger`) — a fully public, free API that requires
+//  no Apple Developer Program enrollment or entitlement. iOS delivers these
+//  even if BedLock isn't running, on each selected weekday at the chosen time.
 //
-//  The app and the extension share state (the current AppSelectionModel and the
-//  "restriction active" flag) through an App Group container so both processes
-//  see the same configuration.
+//  This intentionally does not attempt to restrict any other app on the
+//  device — that's not something a free-signed app is able to do. Pair this
+//  reminder with iOS's native Screen Time → Downtime feature (configured
+//  directly in Settings, also free) for the actual "locking" behavior. See
+//  FREE_LOCKING.md for the full setup.
 //
 import Foundation
-import DeviceActivity
+import UserNotifications
 import Observation
 
 @MainActor
 @Observable
 final class ScheduleManager {
 
-    /// Alias kept for readability at call sites within the app target.
-    static let activityName = BedLockShared.activityName
+    private static let identifierPrefix = "bedlock.morningReminder."
 
-    private let center = DeviceActivityCenter()
     private let persistence: PersistenceService
 
     init(persistence: PersistenceService) {
         self.persistence = persistence
     }
 
-    /// (Re)starts monitoring using the given schedule. Safe to call any time the
-    /// user edits their schedule; it replaces any previously registered activity.
+    private static func identifier(for day: Weekday) -> String {
+        "\(identifierPrefix)\(day.rawValue)"
+    }
+
+    private static var allIdentifiers: [String] {
+        Weekday.allCases.map(identifier(for:))
+    }
+
+    /// (Re)registers the repeating reminder notifications using the given
+    /// schedule. Safe to call any time the user edits their schedule; it
+    /// replaces any previously registered notifications.
     func applySchedule(_ schedule: ScheduleModel) {
-        center.stopMonitoring([Self.activityName])
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: Self.allIdentifiers)
 
-        guard schedule.isEnabled, !schedule.activeDays.isEmpty else {
-            return
-        }
+        guard schedule.isEnabled, !schedule.activeDays.isEmpty else { return }
 
-        let deviceSchedule = DeviceActivitySchedule(
-            intervalStart: schedule.startComponents,
-            intervalEnd: schedule.endComponents,
-            repeats: true
-        )
+        for day in schedule.activeDays {
+            var components = DateComponents()
+            components.hour = schedule.startHour
+            components.minute = schedule.startMinute
+            components.weekday = day.rawValue
 
-        do {
-            try center.startMonitoring(Self.activityName, during: deviceSchedule)
-        } catch {
-            // Monitoring registration can fail if Screen Time authorization has
-            // been revoked. Surface this by leaving monitoring stopped; the
-            // Dashboard shows an authorization warning banner in that case.
-            print("BedLock: failed to start DeviceActivity monitoring: \(error)")
+            let content = UNMutableNotificationContent()
+            content.title = "Good morning!"
+            content.body = "Make your bed to unlock your phone."
+            content.sound = .default
+
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+            let request = UNNotificationRequest(
+                identifier: Self.identifier(for: day),
+                content: content,
+                trigger: trigger
+            )
+            center.add(request)
         }
     }
 
     func stopSchedule() {
-        center.stopMonitoring([Self.activityName])
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: Self.allIdentifiers)
     }
 }

@@ -131,5 +131,5 @@ private struct HistoryRow: View {
     NavigationStack {
         HistoryView()
     }
-    .environment(AppLockManager(screenTimeManager: ScreenTimeManager(), persistence: PersistenceService()))
+    .environment(AppLockManager(persistence: PersistenceService()))
 }

@@ -44,8 +44,7 @@ struct CameraVerificationView: View {
                     verificationService: BedVerificationService(),
                     cameraService: CameraService(),
                     appLockManager: appLockManager,
-                    threshold: persistence.verificationThreshold,
-                    selectionProvider: { persistence.loadAppSelection() }
+                    threshold: persistence.verificationThreshold
                 )
                 await viewModel?.start()
             }
@@ -207,6 +206,6 @@ struct CameraVerificationView: View {
 
 #Preview {
     CameraVerificationView(isTestMode: true)
-        .environment(AppLockManager(screenTimeManager: ScreenTimeManager(), persistence: PersistenceService()))
+        .environment(AppLockManager(persistence: PersistenceService()))
         .environment(PersistenceService())
 }

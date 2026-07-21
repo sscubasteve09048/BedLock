@@ -12,13 +12,6 @@ Apple ID and installs it straight onto your phone over USB.
 4. Wait for the run to finish (a few minutes) — green checkmark means it worked.
 5. Open the completed run, scroll to **Artifacts**, and download **BedLock-unsigned-ipa**. Unzip it — you'll get `BedLock-unsigned.ipa`.
 
-If this step fails on the "Archive without code signing" job, it's most
-likely the `BedLockMonitor` extension target refusing to build without any
-signing at all. Let me know and I'll adjust the workflow to build just the
-main app target and skip embedding the extension — you'd lose the
-auto-scheduling piece (which needs the paid entitlement anyway per
-`FREE_LOCKING.md`) but keep everything else.
-
 ## 2. Install Sideloadly
 
 Download it free from **sideloadly.io** (Windows and Mac both supported).
@@ -60,14 +53,15 @@ refuses to launch.
 
 ## 6. What to expect
 
-- **Camera verification, Vision-based bed detection, History, notifications,
-  and the Siri/Shortcuts "Verify My Bed Is Made" intent** all work exactly as
-  designed — none of that needs anything beyond a free Apple ID.
-- **The automatic Screen Time shield does not work** on a free personal-team
-  build — Family Controls requires Apple's paid-program approval regardless
-  of how the app is signed. Use the native Screen Time Downtime approach in
-  `FREE_LOCKING.md` instead for the actual "locking" behavior; BedLock
-  becomes the verification/trigger app that you invoke via Siri or the
+- **Camera verification, Vision-based bed detection, History, reminders, and
+  the Siri/Shortcuts "Verify My Bed Is Made" intent** all work exactly as
+  designed — this project needs nothing beyond a free Apple ID, on Sideloadly
+  or anywhere else.
+- **BedLock does not restrict other apps itself** — no third-party app can do
+  that without Apple's paid, approved Family Controls entitlement, which this
+  project intentionally doesn't use. Pair BedLock with the native Screen Time
+  → Downtime approach in `FREE_LOCKING.md` for the actual "locking" behavior;
+  BedLock is the verification/trigger app you invoke via Siri or the
   Shortcuts app once Downtime is active.
 - **The app expires after 7 days.** This is an Apple limit on free
   personal-team signing, not something Sideloadly or this project can change.

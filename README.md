@@ -1,58 +1,99 @@
 # BedLock
 
-A SwiftUI iOS app that locks your phone until you take a verified photo of your made bed.
+A SwiftUI iOS app that helps you build the habit of making your bed: it
+verifies a photo of your bed each morning using Apple's Vision framework, and
+tracks a history of every attempt. It's designed to pair with iOS's own free
+**Screen Time → Downtime** feature for actual app restriction — see
+`FREE_LOCKING.md`.
 
 ## What's included
 
-- **BedLock** (app target): Dashboard, Schedule, App Selection, Camera Verification, History, and Settings screens, built with SwiftUI + the Observation framework + NavigationStack, MVVM throughout.
-- **BedLockMonitor** (DeviceActivityMonitor extension target): wakes up at your scheduled time and engages the Screen Time shield even if the app isn't running.
-- **Shared** code (models + persistence + notifications) used by both targets via an App Group.
-- Modular bed-verification pipeline: `BedVerifying` protocol → `VisionBedVerificationService` (ships today, built on Apple's on-device `VNClassifyImageRequest` + `VNDetectRectanglesRequest`) → `CoreMLBedVerificationService` (drop in a trained `.mlmodelc` later, zero other code changes) → `BedVerificationService` facade that prefers the custom model and falls back automatically.
+- **BedLock** — a single-target app (Dashboard, Schedule, Camera Verification,
+  History, and Settings screens), built with SwiftUI + the Observation
+  framework + NavigationStack, MVVM throughout.
+- Modular bed-verification pipeline: `BedVerifying` protocol →
+  `VisionBedVerificationService` (ships today, built on Apple's on-device
+  `VNClassifyImageRequest` + `VNDetectRectanglesRequest`) →
+  `CoreMLBedVerificationService` (drop in a trained `.mlmodelc` later, zero
+  other code changes) → `BedVerificationService` facade that prefers the
+  custom model and falls back automatically.
+- **Siri Shortcuts / App Intents integration** (`VerifyBedMadeIntent`) — say
+  "Hey Siri, verify my bed with BedLock," trigger it from the Shortcuts app,
+  or a Personal Automation, to open straight to the camera.
+- Local, repeating reminder notifications (`ScheduleManager`) using
+  `UNCalendarNotificationTrigger` — no background wake-up entitlement needed.
 
-## One-time setup before building (required)
+## No paid Apple Developer account required
 
-Apple ties several things to your own Developer account. You must do these before the project will build and run on a device:
+Earlier versions of this project used `FamilyControls`/`ManagedSettings` (a
+`DeviceActivityMonitor` extension target) to have the app itself shield other
+apps on the device. That API requires a paid ($99/yr) Apple Developer Program
+membership *and* an Apple-approved capability request — a real source of
+friction and build fragility. This version removes that entirely:
 
-1. **Apple Developer Program membership** with Screen Time / Family Controls access. Apple requires you to request the **Family Controls (Distribution) capability** for your Team ID: https://developer.apple.com/contact/request/family-controls-distribution — approval isn't instant, so start this first. The `.development` scope of Family Controls (used for local testing at all) also requires this entitlement to be present on your provisioning profile.
-2. **Open `BedLock.xcodeproj` in Xcode 16+** (needed for the iOS 18 SDK, `Tab(_:systemImage:)`, and Observation APIs used here).
-3. For **both** targets (BedLock and BedLockMonitor), in *Signing & Capabilities*:
-   - Set your **Team**.
-   - Change the **Bundle Identifier** away from the placeholders (`com.bedlock.app` and `com.bedlock.app.BedLockMonitor`) to something under your own Team's identifier prefix — keep the extension's ID as `<appID>.BedLockMonitor`.
-   - Add the **App Groups** capability and select/create a group (the code assumes `group.com.bedlock.shared` — either create that exact group or update `PersistenceService.appGroupIdentifier` and `*.entitlements` files to match your own).
-   - Add the **Family Controls** capability to the **BedLock app target only** (not the extension).
-4. Build and run on a **physical iPhone** running iOS 18+. `FamilyControls`/`ManagedSettings`/`DeviceActivity` do not work in the Simulator.
-5. On first launch, grant Screen Time, Camera, and Notification permissions when prompted (Dashboard prompts for Screen Time; Settings shows live status for all three).
+- **Zero entitlements.** No App Group, no Family Controls capability.
+- **Single target.** No extension, no shared container, no cross-process state.
+- **Builds and runs on a free ("Personal Team") Apple ID.** Open the project
+  in Xcode, select your own free Apple ID as the team, and run — no capability
+  requests, no waiting on Apple approval.
+- **Camera, Vision, local notifications, and App Intents/Siri Shortcuts** are
+  all fully public APIs with no special entitlement, so all of BedLock's core
+  functionality — verification, history, reminders, Siri triggers — works
+  exactly the same either way.
+
+The one thing a free account genuinely can't do is have BedLock itself block
+other apps at the OS level — no app can do that without the paid, approved
+entitlement. Instead, pair BedLock with iOS's own free Screen Time → Downtime
+feature, configured directly in Settings. **Read `FREE_LOCKING.md` for the
+full walkthrough** — it's the actual "locking" mechanism for this project.
+
+## Setup
+
+1. Open `BedLock.xcodeproj` in Xcode 16+ (needed for the iOS 18 SDK,
+   `Tab(_:systemImage:)`, and Observation APIs used here).
+2. In *Signing & Capabilities*, set your **Team** (a free Apple ID works) and
+   change the **Bundle Identifier** away from the placeholder `com.bedlock.app`
+   to something under your own identifier prefix.
+3. Build and run on a physical iPhone or the Simulator, iOS 18+.
+4. On first launch, grant Camera and Notification permissions when prompted.
+5. Follow `FREE_LOCKING.md` to configure Screen Time Downtime for the actual
+   app-blocking behavior.
 
 ## Using the app
 
-1. **Apps tab** (Settings → Apps): choose whether to block everything except an allow-list, or only block specific apps; pick which apps stay reachable.
-2. **Schedule tab** (Settings → Schedule): set the lock start time, optional end time, and active days.
-3. Every morning at the scheduled time, BedLockMonitor shields your apps and fires "Good morning! Make your bed to unlock your phone."
-4. Open BedLock, tap **Make Your Bed to Unlock**, take a photo. If confidence ≥ your threshold (default 85%, adjustable in Settings), the shield lifts and you get "Nice job! Your phone is unlocked." Otherwise you're asked to retake the photo.
-5. **Settings → Test Verification** locks your apps immediately (ignoring the schedule) and runs the identical camera + verification + unlock flow, for testing any time of day.
-6. **History tab** shows every attempt: date, time, confidence, and pass/fail, with TEST attempts flagged.
+1. **Settings → Schedule**: set the reminder time, optional second reminder,
+   and active days.
+2. Every morning at the scheduled time, BedLock sends "Good morning! Make
+   your bed to unlock your phone." (You can also trigger this on demand via
+   Siri or the Shortcuts app — see `FREE_LOCKING.md`.)
+3. Open BedLock, tap **Make Your Bed to Unlock**, take a photo. If confidence
+   ≥ your threshold (default 85%, adjustable in Settings), you get "Nice job!
+   Your phone is unlocked." Otherwise you're asked to retake the photo.
+4. **Settings → Test Verification** runs the identical camera + verification
+   flow any time of day, ignoring the schedule.
+5. **History tab** shows every attempt: date, time, confidence, and
+   pass/fail, with TEST attempts flagged.
 
-## Known Apple-imposed limitations (by design, not a bug)
+## Known limitation (by design, not a bug)
 
-- **Emergency SOS, Phone, and system Clock alarms can never be shielded** by any third-party app — `ManagedSettings` silently ignores attempts to restrict them. BedLock never tries to route around this; the App Selection screen documents it.
-- Apple does not expose bundle identifiers for installed apps to third parties, so app selection happens through the system `FamilyActivityPicker` (opaque tokens), not a custom list — this is intentional on Apple's part for privacy.
-- The bundled `VisionBedVerificationService` is a heuristic (scene classification + rectangle/flatness detection), not a model specifically trained on "made vs. unmade" beds, since no such public Core ML model exists. Accuracy will improve once you train and drop in a custom model — see `CoreMLBedVerificationService.swift`.
+The bundled `VisionBedVerificationService` is a heuristic (scene
+classification + rectangle/flatness detection), not a model specifically
+trained on "made vs. unmade" beds, since no such public Core ML model exists.
+Accuracy will improve once you train and drop in a custom model — see
+`CoreMLBedVerificationService.swift`.
 
 ## Project structure
 
 ```
 BedLock.xcodeproj
-BedLock/                     (app target)
+BedLock/
   BedLockApp.swift
-  Managers/                  ScreenTimeManager, ScheduleManager, AppLockManager
+  Managers/                  AppLockManager, ScheduleManager
   Services/                  BedVerifying + Vision/CoreML implementations, CameraService
+  Intents/                   VerifyBedMadeIntent, AppRouter, AppDependencies (Siri/Shortcuts)
   ViewModels/                one per screen, @Observable
   Views/                     one per screen, SwiftUI
-  Shared/                    Models + PersistenceService + NotificationService + SharedConstants
-                             (also included in the BedLockMonitor target)
+  Shared/                    Models + PersistenceService + NotificationService
   Resources/Assets.xcassets  AppIcon (placeholder) + AccentColor
-  Info.plist, BedLock.entitlements
-BedLockMonitor/               (DeviceActivityMonitor extension target)
-  DeviceActivityMonitorExtension.swift
-  Info.plist, BedLockMonitor.entitlements
+  Info.plist
 ```

@@ -2,14 +2,16 @@
 //  DashboardView.swift
 //  BedLock
 //
-//  The home screen: shows whether the phone is currently locked, the active
-//  schedule at a glance, and a big call-to-action to verify and unlock.
+//  The home screen: shows BedLock's own "locked" status, the active reminder
+//  schedule at a glance, and a big call-to-action to verify and unlock. Actual
+//  app restriction comes from iOS's native Screen Time → Downtime feature,
+//  configured directly in Settings — see the info card below and
+//  FREE_LOCKING.md for the full setup.
 //
 import SwiftUI
 
 struct DashboardView: View {
     @Environment(AppLockManager.self) private var appLockManager
-    @Environment(ScreenTimeManager.self) private var screenTimeManager
     @Environment(PersistenceService.self) private var persistence
 
     @State private var viewModel: DashboardViewModel?
@@ -18,12 +20,10 @@ struct DashboardView: View {
         ScrollView {
             VStack(spacing: 24) {
                 statusCard
-                if let viewModel, viewModel.needsAuthorization {
-                    authorizationBanner(viewModel: viewModel)
-                }
                 if let viewModel {
                     scheduleSummaryCard(viewModel: viewModel)
                 }
+                infoCard
                 Spacer(minLength: 12)
             }
             .padding()
@@ -34,7 +34,6 @@ struct DashboardView: View {
             if viewModel == nil {
                 viewModel = DashboardViewModel(
                     appLockManager: appLockManager,
-                    screenTimeManager: screenTimeManager,
                     persistence: persistence
                 )
             }
@@ -48,14 +47,6 @@ struct DashboardView: View {
             set: { viewModel?.showingVerification = $0 }
         )) {
             CameraVerificationView(isTestMode: false)
-        }
-        .alert("Screen Time Access Needed", isPresented: Binding(
-            get: { viewModel?.showingAuthorizationAlert ?? false },
-            set: { viewModel?.showingAuthorizationAlert = $0 }
-        )) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("BedLock needs Screen Time permission to lock apps. Enable it in Settings > Screen Time > BedLock.")
         }
     }
 
@@ -89,7 +80,7 @@ struct DashboardView: View {
                         .padding()
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(.accentColor)
+                .tint(Color.accentColor)
             }
         }
         .frame(maxWidth: .infinity)
@@ -102,30 +93,6 @@ struct DashboardView: View {
         (viewModel?.isLocked ?? false) ? .red : .green
     }
 
-    private func authorizationBanner(viewModel: DashboardViewModel) -> some View {
-        Button {
-            Task { await viewModel.requestAuthorizationIfNeeded() }
-        } label: {
-            HStack {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundStyle(.orange)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Screen Time Permission Needed")
-                        .font(.subheadline.bold())
-                    Text("Tap to grant access so BedLock can lock apps.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(.secondary)
-            }
-            .padding()
-            .background(.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        }
-        .buttonStyle(.plain)
-    }
-
     private func scheduleSummaryCard(viewModel: DashboardViewModel) -> some View {
         NavigationLink {
             ScheduleView()
@@ -136,7 +103,7 @@ struct DashboardView: View {
                     .foregroundStyle(Color.accentColor)
                     .frame(width: 44)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Morning Schedule")
+                    Text("Morning Reminder")
                         .font(.subheadline.bold())
                         .foregroundStyle(.primary)
                     Text(viewModel.schedule.isEnabled ? viewModel.schedule.summary : "Disabled")
@@ -153,6 +120,19 @@ struct DashboardView: View {
         }
         .buttonStyle(.plain)
     }
+
+    private var infoCard: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Label("How locking works", systemImage: "info.circle.fill")
+                .font(.subheadline.bold())
+                .foregroundStyle(Color.accentColor)
+            Text("BedLock verifies your bed and tracks your streak here for free. To actually restrict other apps, turn on Screen Time → Downtime in Settings and add BedLock to Always Allowed — see FREE_LOCKING.md in the project for the full walkthrough.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .padding()
+        .background(Color.accentColor.opacity(0.08), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
 }
 
 #Preview {
@@ -160,6 +140,5 @@ struct DashboardView: View {
         DashboardView()
     }
     .environment(PersistenceService())
-    .environment(ScreenTimeManager())
-    .environment(AppLockManager(screenTimeManager: ScreenTimeManager(), persistence: PersistenceService()))
+    .environment(AppLockManager(persistence: PersistenceService()))
 }

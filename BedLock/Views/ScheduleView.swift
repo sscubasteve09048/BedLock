@@ -40,7 +40,7 @@ struct ScheduleView: View {
         )) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("BedLock will automatically lock your apps at the scheduled time on the days you selected.")
+            Text("BedLock will remind you at the scheduled time on the days you selected. Pair this with Screen Time Downtime (see FREE_LOCKING.md) to actually restrict your apps.")
         }
     }
 
@@ -58,7 +58,7 @@ struct ScheduleView: View {
     @ViewBuilder
     private func enableSection(viewModel: ScheduleViewModel) -> some View {
         Section {
-            Toggle("Enable Morning Lock", isOn: bindingFor(viewModel).isEnabled)
+            Toggle("Enable Morning Reminder", isOn: bindingFor(viewModel).isEnabled)
         }
     }
 
@@ -66,7 +66,7 @@ struct ScheduleView: View {
     private func startTimeSection(viewModel: ScheduleViewModel) -> some View {
         Section("Start Time") {
             DatePicker(
-                "Lock at",
+                "Remind me at",
                 selection: bindingFor(viewModel).startTime,
                 displayedComponents: .hourAndMinute
             )
@@ -76,16 +76,16 @@ struct ScheduleView: View {
     @ViewBuilder
     private func endTimeSection(viewModel: ScheduleViewModel) -> some View {
         Section {
-            Toggle("Set an End Time", isOn: bindingFor(viewModel).hasEndTime)
+            Toggle("Send a Second Reminder", isOn: bindingFor(viewModel).hasEndTime)
             if viewModel.schedule.hasEndTime {
                 DatePicker(
-                    "Stop enforcing at",
+                    "Second reminder at",
                     selection: bindingFor(viewModel).endTime,
                     displayedComponents: .hourAndMinute
                 )
             }
         } footer: {
-            Text("If no end time is set, the lock stays active until you verify your bed is made, no matter how late in the day it is.")
+            Text("Optional: a follow-up nudge later in the morning if you haven't verified yet.")
         }
     }
 

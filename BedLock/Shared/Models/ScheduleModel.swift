@@ -2,7 +2,9 @@
 //  ScheduleModel.swift
 //  BedLock
 //
-//  Defines the user-configurable morning lock schedule.
+//  Defines the user-configurable morning reminder schedule. This drives a
+//  repeating local notification (see ScheduleManager) — it does not itself
+//  restrict any other app.
 //
 
 import Foundation
@@ -44,14 +46,13 @@ enum Weekday: Int, CaseIterable, Codable, Identifiable {
     }
 }
 
-/// The user's configuration for when BedLock should automatically restrict apps.
+/// The user's configuration for BedLock's morning reminder.
 struct ScheduleModel: Codable, Equatable {
-    /// Hour/minute the lock engages (e.g. 7:00 AM).
+    /// Hour/minute the reminder notification fires (e.g. 7:00 AM).
     var startHour: Int
     var startMinute: Int
 
-    /// Whether an end time is configured. If false, the lock stays active until verification succeeds,
-    /// regardless of time of day.
+    /// Whether a second, later reminder is configured.
     var hasEndTime: Bool
     var endHour: Int
     var endMinute: Int
@@ -72,19 +73,9 @@ struct ScheduleModel: Codable, Equatable {
         isEnabled: true
     )
 
-    /// A `DateComponents` representation of the start time, suitable for `DeviceActivitySchedule`.
+    /// A `DateComponents` representation of the start time.
     var startComponents: DateComponents {
         DateComponents(hour: startHour, minute: startMinute)
-    }
-
-    /// A `DateComponents` representation of the end time.
-    var endComponents: DateComponents {
-        if hasEndTime {
-            return DateComponents(hour: endHour, minute: endMinute)
-        }
-        // If no explicit end time, default the DeviceActivity window to just before midnight
-        // so the restriction persists until the user verifies, regardless of time of day.
-        return DateComponents(hour: 23, minute: 59)
     }
 
     /// Human-readable summary, e.g. "7:00 AM · Mon, Tue, Wed, Thu, Fri".

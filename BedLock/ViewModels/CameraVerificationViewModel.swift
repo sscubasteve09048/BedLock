@@ -35,7 +35,6 @@ final class CameraVerificationViewModel {
     private let verificationService: BedVerifying
     private let cameraService: CameraService
     private let appLockManager: AppLockManager
-    private let selectionProvider: () -> AppSelectionModel
     private let threshold: Double
 
     init(
@@ -43,23 +42,21 @@ final class CameraVerificationViewModel {
         verificationService: BedVerifying,
         cameraService: CameraService,
         appLockManager: AppLockManager,
-        threshold: Double,
-        selectionProvider: @escaping () -> AppSelectionModel
+        threshold: Double
     ) {
         self.isTestMode = isTestMode
         self.verificationService = verificationService
         self.cameraService = cameraService
         self.appLockManager = appLockManager
         self.threshold = threshold
-        self.selectionProvider = selectionProvider
     }
 
     /// Entry point called when the verification screen appears.
     func start() async {
         if isTestMode {
-            // Test Verification ignores the schedule and locks immediately,
-            // exactly like the morning trigger would.
-            appLockManager.lockNow(selection: selectionProvider())
+            // Test Verification ignores the schedule and marks BedLock as
+            // locked immediately, exactly like the morning reminder would.
+            appLockManager.lockNow()
         }
 
         stage = .awaitingCameraPermission

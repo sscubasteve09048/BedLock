@@ -2,11 +2,14 @@
 //  AppLockManager.swift
 //  BedLock
 //
-//  The single source of truth for "is BedLock currently restricting apps".
-//  Coordinates ScreenTimeManager (applies the actual shield), PersistenceService
-//  (remembers state/history across launches and processes), and
-//  NotificationService (user-facing alerts). ViewModels talk to this instead of
-//  touching ManagedSettings/UserDefaults directly.
+//  BedLock's own notion of "locked" — driven entirely by app state, not by any
+//  Screen Time API. It's used for the Dashboard status card, the History log,
+//  and habit tracking. To actually restrict other apps on the phone, pair this
+//  with iOS's native Screen Time → Downtime feature, configured directly in
+//  Settings (no Apple Developer account or entitlement needed) — see
+//  FREE_LOCKING.md for the full walkthrough. BedLock's role is to gate *you*
+//  reaching for the Screen Time passcode (via an accountability partner, or
+//  simply your own honor system) until you've proven your bed is made.
 //
 import Foundation
 import Observation
@@ -19,31 +22,26 @@ final class AppLockManager {
     private(set) var lastVerificationDate: Date?
     private(set) var history: [UnlockHistoryEntry]
 
-    let screenTimeManager: ScreenTimeManager
     let persistence: PersistenceService
 
-    init(screenTimeManager: ScreenTimeManager, persistence: PersistenceService) {
-        self.screenTimeManager = screenTimeManager
+    init(persistence: PersistenceService) {
         self.persistence = persistence
         self.isLocked = persistence.isRestrictionActive
         self.lastVerificationDate = persistence.lastVerificationDate
         self.history = persistence.loadHistory()
     }
 
-    /// Engages the shield immediately, using the current app selection. Called by
-    /// the schedule (via the DeviceActivityMonitor extension setting the shared
-    /// flag, then the app syncing on next foreground) or by the Test Verification
-    /// flow.
-    func lockNow(selection: AppSelectionModel) {
-        screenTimeManager.applyRestrictions(selection: selection)
+    /// Marks BedLock as "locked" and fires the morning notification. Call this
+    /// when the schedule's reminder notification fires, or from the Test
+    /// Verification flow.
+    func lockNow() {
         isLocked = true
         persistence.isRestrictionActive = true
         NotificationService.shared.sendMorningLockNotification()
     }
 
-    /// Removes the shield and records a history entry describing why.
+    /// Marks BedLock as unlocked and records a successful history entry.
     func unlock(result: VerificationResult, isTest: Bool) {
-        screenTimeManager.removeRestrictions()
         isLocked = false
         persistence.isRestrictionActive = false
 
@@ -75,9 +73,7 @@ final class AppLockManager {
         history = persistence.loadHistory()
     }
 
-    /// Re-reads shared state — call on `scenePhase` becoming `.active` so the app
-    /// picks up a lock that the DeviceActivityMonitor extension engaged while the
-    /// app wasn't running.
+    /// Re-reads persisted state — call on `scenePhase` becoming `.active`.
     func syncWithSharedState() {
         isLocked = persistence.isRestrictionActive
         history = persistence.loadHistory()

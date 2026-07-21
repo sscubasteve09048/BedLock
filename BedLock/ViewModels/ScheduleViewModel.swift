@@ -2,8 +2,8 @@
 //  ScheduleViewModel.swift
 //  BedLock
 //
-//  Drives the Schedule editing screen, persisting changes and re-registering the
-//  DeviceActivity monitoring schedule whenever the user saves.
+//  Drives the Schedule editing screen, persisting changes and re-registering
+//  the local reminder notifications whenever the user saves.
 //
 import Foundation
 import Observation

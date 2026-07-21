@@ -13,16 +13,13 @@ import Observation
 final class DashboardViewModel {
 
     let appLockManager: AppLockManager
-    let screenTimeManager: ScreenTimeManager
     private let persistence: PersistenceService
 
     var schedule: ScheduleModel
     var showingVerification = false
-    var showingAuthorizationAlert = false
 
-    init(appLockManager: AppLockManager, screenTimeManager: ScreenTimeManager, persistence: PersistenceService) {
+    init(appLockManager: AppLockManager, persistence: PersistenceService) {
         self.appLockManager = appLockManager
-        self.screenTimeManager = screenTimeManager
         self.persistence = persistence
         self.schedule = persistence.loadSchedule()
     }
@@ -38,23 +35,9 @@ final class DashboardViewModel {
         return "Last unlocked \(formatter.localizedString(for: date, relativeTo: Date()))"
     }
 
-    var needsAuthorization: Bool {
-        screenTimeManager.authorizationStatus != .approved
-    }
-
     func refresh() {
         appLockManager.syncWithSharedState()
         schedule = persistence.loadSchedule()
-        screenTimeManager.refreshAuthorizationStatus()
-    }
-
-    func requestAuthorizationIfNeeded() async {
-        if screenTimeManager.authorizationStatus == .notDetermined {
-            await screenTimeManager.requestAuthorization()
-        }
-        if screenTimeManager.authorizationStatus != .approved {
-            showingAuthorizationAlert = true
-        }
     }
 
     func beginVerification() {

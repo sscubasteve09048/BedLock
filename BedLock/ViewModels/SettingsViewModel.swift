@@ -2,9 +2,8 @@
 //  SettingsViewModel.swift
 //  BedLock
 //
-//  Drives the Settings screen: notification/camera/Screen Time permission
-//  status, the verification confidence threshold, and the Test Verification
-//  entry point.
+//  Drives the Settings screen: notification/camera permission status, the
+//  verification confidence threshold, and the Test Verification entry point.
 //
 import Foundation
 import Observation
@@ -14,7 +13,6 @@ import Observation
 final class SettingsViewModel {
 
     private let persistence: PersistenceService
-    let screenTimeManager: ScreenTimeManager
 
     var threshold: Double {
         didSet { persistence.verificationThreshold = threshold }
@@ -24,9 +22,8 @@ final class SettingsViewModel {
     var notificationsAuthorized = false
     var cameraAuthorized = false
 
-    init(persistence: PersistenceService, screenTimeManager: ScreenTimeManager) {
+    init(persistence: PersistenceService) {
         self.persistence = persistence
-        self.screenTimeManager = screenTimeManager
         self.threshold = persistence.verificationThreshold
     }
 
@@ -38,6 +35,5 @@ final class SettingsViewModel {
         notificationsAuthorized = await NotificationService.shared.requestAuthorization()
         let cameraService = CameraService()
         cameraAuthorized = cameraService.currentAuthorizationStatus == .authorized
-        screenTimeManager.refreshAuthorizationStatus()
     }
 }

@@ -1,11 +1,10 @@
-# Locking apps for free (no paid developer account, no entitlement)
+# Locking apps for free (this is now the only path — no paid account needed)
 
-The Family Controls entitlement (what the `ScreenTimeManager`/`ManagedSettings`
-code in this project uses) is the only piece of BedLock that genuinely
-requires Apple's paid Developer Program + an approved capability request.
-Everything else — camera capture, Vision-based bed verification, history,
-local notifications, and now Siri Shortcuts integration — is built on fully
-public APIs and costs nothing.
+BedLock no longer includes any `FamilyControls`/`ManagedSettings` code — that
+API requires Apple's paid Developer Program + an approved capability request,
+and earlier versions of this project used it to have the app shield other
+apps directly. It's been removed entirely so the whole project builds and
+runs on a free Apple ID with zero entitlements.
 
 This doc describes a free alternative locking mechanism built entirely out of
 features already on your iPhone, plus the two new files this update adds:
@@ -90,19 +89,19 @@ native and free, and doesn't require you personally to hold a passcode you
 don't know, but it does require a second device or careful juggling of two
 Apple IDs on one device.
 
-## What you get either way
+## What BedLock gives you
 
-| Feature | Free path (Downtime) | Paid path (Family Controls) |
-|---|---|---|
-| Camera + Vision bed verification | ✅ | ✅ |
-| History log | ✅ | ✅ |
-| Notifications | ✅ | ✅ |
-| Siri/Shortcuts/Action Button trigger | ✅ (new) | ✅ (new) |
-| Automatic schedule (no user action) | Downtime engages itself, free | `DeviceActivityMonitor` extension engages the shield, free once entitled |
-| Hard "can't disable without proof" gate | Only with an accountability partner (Option A/C) | Yes, natively — the app itself controls the shield |
-| Cost | $0 | $99/year Apple Developer Program |
+| Feature | Included |
+|---|---|
+| Camera + Vision bed verification | ✅ |
+| History log | ✅ |
+| Reminder notifications | ✅ |
+| Siri/Shortcuts/Action Button trigger | ✅ |
+| Automatic app blocking at OS level | Not from BedLock itself — use Screen Time Downtime (this doc) |
+| Hard "can't disable without proof" gate | Only with an accountability partner (Option A/C above) |
+| Cost | $0 |
 
-If you later decide to pursue the paid entitlement, nothing here conflicts —
-`ScreenTimeManager`/`ManagedSettingsStore` and this free path can coexist; you'd
-just be choosing which one actually drives the "lock" while keeping the same
-verification core.
+If you later decide you want the app itself to control the shield (rather
+than native Downtime), that requires re-adding `FamilyControls`/
+`ManagedSettings` and Apple's paid, approved entitlement — a substantial
+undertaking outside the scope of what ships here today.

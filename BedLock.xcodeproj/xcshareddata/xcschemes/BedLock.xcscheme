@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B916EEA8400F47598BFA6C41"
+               BlueprintIdentifier = "3AA446B38B4440879F1D9705"
                BuildableName = "BedLock.app"
                BlueprintName = "BedLock"
                ReferencedContainer = "container:BedLock.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B916EEA8400F47598BFA6C41"
+            BlueprintIdentifier = "3AA446B38B4440879F1D9705"
             BuildableName = "BedLock.app"
             BlueprintName = "BedLock"
             ReferencedContainer = "container:BedLock.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B916EEA8400F47598BFA6C41"
+            BlueprintIdentifier = "3AA446B38B4440879F1D9705"
             BuildableName = "BedLock.app"
             BlueprintName = "BedLock"
             ReferencedContainer = "container:BedLock.xcodeproj">

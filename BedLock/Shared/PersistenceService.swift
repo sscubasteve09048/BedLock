@@ -23,6 +23,9 @@ final class PersistenceService {
         static let lastVerificationDate = "bedlock.lastVerificationDate"
         static let isRestrictionActive = "bedlock.isRestrictionActive"
         static let verificationThreshold = "bedlock.verificationThreshold"
+        static let retrainReminderEnabled = "bedlock.retrainReminderEnabled"
+        static let retrainIntervalDays = "bedlock.retrainIntervalDays"
+        static let lastModelTrainingDate = "bedlock.lastModelTrainingDate"
     }
 
     private let defaults: UserDefaults
@@ -100,5 +103,33 @@ final class PersistenceService {
             return stored == 0 ? 0.6 : stored
         }
         set { defaults.set(newValue, forKey: Keys.verificationThreshold) }
+    }
+
+    // MARK: - Custom model retrain reminder
+
+    /// Whether BedLock should periodically remind you to recollect photos and
+    /// retrain your custom Core ML model (see TRAIN_CUSTOM_MODEL.md). Only
+    /// meaningful once a custom model is actually installed — the Settings
+    /// screen hides this toggle otherwise.
+    var retrainReminderEnabled: Bool {
+        get { defaults.bool(forKey: Keys.retrainReminderEnabled) }
+        set { defaults.set(newValue, forKey: Keys.retrainReminderEnabled) }
+    }
+
+    /// How often to remind, in days. Defaults to 60.
+    var retrainIntervalDays: Int {
+        get {
+            let stored = defaults.integer(forKey: Keys.retrainIntervalDays)
+            return stored == 0 ? 60 : stored
+        }
+        set { defaults.set(newValue, forKey: Keys.retrainIntervalDays) }
+    }
+
+    /// The last time you told BedLock you'd retrained the model (tapped
+    /// "I Just Retrained" in Settings). Used to compute "trained X days ago"
+    /// and to know when the next reminder is due.
+    var lastModelTrainingDate: Date? {
+        get { defaults.object(forKey: Keys.lastModelTrainingDate) as? Date }
+        set { defaults.set(newValue, forKey: Keys.lastModelTrainingDate) }
     }
 }

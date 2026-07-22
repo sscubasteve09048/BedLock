@@ -79,8 +79,10 @@ full walkthrough** — it's the actual "locking" mechanism for this project.
 The bundled `VisionBedVerificationService` is a heuristic (scene
 classification + rectangle/flatness detection), not a model specifically
 trained on "made vs. unmade" beds, since no such public Core ML model exists.
-Accuracy will improve once you train and drop in a custom model — see
-`CoreMLBedVerificationService.swift`.
+**See `TRAIN_CUSTOM_MODEL.md` for a full guide to training a personal model
+on photos of your own bed** — it's a much easier problem than general bed
+detection, and the app already prefers a custom model over the heuristic
+automatically once one is added (`CoreMLBedVerificationService.swift`).
 
 ## Project structure
 

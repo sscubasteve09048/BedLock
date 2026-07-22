@@ -16,6 +16,7 @@ struct BedLockApp: App {
     @State private var persistence: PersistenceService
     @State private var appLockManager: AppLockManager
     @State private var scheduleManager: ScheduleManager
+    @State private var retrainReminderManager: ModelRetrainReminderManager
 
     @Environment(\.scenePhase) private var scenePhase
 
@@ -24,6 +25,7 @@ struct BedLockApp: App {
         _persistence = State(initialValue: persistence)
         _appLockManager = State(initialValue: AppLockManager(persistence: persistence))
         _scheduleManager = State(initialValue: ScheduleManager(persistence: persistence))
+        _retrainReminderManager = State(initialValue: ModelRetrainReminderManager(persistence: persistence))
     }
 
     var body: some Scene {
@@ -32,16 +34,19 @@ struct BedLockApp: App {
                 .environment(persistence)
                 .environment(appLockManager)
                 .environment(scheduleManager)
+                .environment(retrainReminderManager)
                 .environment(AppDependencies.shared.router)
                 .task {
                     // Re-register the reminder notifications on launch in case
                     // the user edited the schedule while the app was terminated.
                     scheduleManager.applySchedule(persistence.loadSchedule())
+                    retrainReminderManager.applyReminderSettings()
                     _ = await NotificationService.shared.requestAuthorization()
                 }
                 .onChange(of: scenePhase) { _, newPhase in
                     if newPhase == .active {
                         appLockManager.syncWithSharedState()
+                        retrainReminderManager.applyReminderSettings()
                     }
                 }
         }

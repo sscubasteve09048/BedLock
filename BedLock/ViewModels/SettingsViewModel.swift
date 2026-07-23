@@ -81,12 +81,17 @@ final class SettingsViewModel {
 
     /// Handles the result of the `.fileImporter` sheet: compiles and installs
     /// the picked model file, taking effect immediately with no rebuild.
-    func handleModelImportResult(_ result: Result<[URL], Error>) async {
+    ///
+    /// NOTE: this is `Result<URL, Error>`, not `Result<[URL], Error>` — the
+    /// `.fileImporter` overload used in SettingsView (no
+    /// `allowsMultipleSelection` argument) is the single-file selector and
+    /// hands back one URL directly, not an array. Using the array type here
+    /// is a real compile error, not a style choice.
+    func handleModelImportResult(_ result: Result<URL, Error>) async {
         switch result {
         case .failure(let error):
             modelImportErrorMessage = error.localizedDescription
-        case .success(let urls):
-            guard let url = urls.first else { return }
+        case .success(let url):
             isImportingModel = true
             defer { isImportingModel = false }
             do {

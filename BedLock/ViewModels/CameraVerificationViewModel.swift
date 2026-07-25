@@ -3,10 +3,11 @@
 //  BedLock
 //
 //  Drives the full verification flow: request camera permission, present the
-//  camera, run the photo through BedVerifying, then unlock (or ask for a retry).
-//  Also used by the Test Verification button in Settings, in which case
-//  `isTestMode` is true: the flow first force-locks the apps exactly like the
-//  real schedule would, then runs the identical verification path.
+//  camera, run the photo through BedVerifying, then record the result. Also
+//  used by the Test Verification button in Settings (`isTestMode == true`),
+//  which runs the identical camera + model pipeline but never touches real
+//  XP/streak progress — it's for checking the pipeline works, not the actual
+//  morning check-in.
 //
 import Foundation
 import UIKit
@@ -34,31 +35,25 @@ final class CameraVerificationViewModel {
 
     private let verificationService: BedVerifying
     private let cameraService: CameraService
-    private let appLockManager: AppLockManager
+    private let gamificationManager: GamificationManager
     private let threshold: Double
 
     init(
         isTestMode: Bool,
         verificationService: BedVerifying,
         cameraService: CameraService,
-        appLockManager: AppLockManager,
+        gamificationManager: GamificationManager,
         threshold: Double
     ) {
         self.isTestMode = isTestMode
         self.verificationService = verificationService
         self.cameraService = cameraService
-        self.appLockManager = appLockManager
+        self.gamificationManager = gamificationManager
         self.threshold = threshold
     }
 
     /// Entry point called when the verification screen appears.
     func start() async {
-        if isTestMode {
-            // Test Verification ignores the schedule and marks BedLock as
-            // locked immediately, exactly like the morning reminder would.
-            appLockManager.lockNow()
-        }
-
         stage = .awaitingCameraPermission
         let status = await cameraService.requestAuthorization()
         switch status {
@@ -91,10 +86,10 @@ final class CameraVerificationViewModel {
         do {
             let result = try await verificationService.verify(image: image, threshold: threshold)
             if result.isSuccessful {
-                appLockManager.unlock(result: result, isTest: isTestMode)
+                gamificationManager.recordSuccessfulVerification(result: result, isTest: isTestMode)
                 stage = .success(result)
             } else {
-                appLockManager.recordFailedAttempt(result: result, isTest: isTestMode)
+                gamificationManager.recordFailedAttempt(result: result, isTest: isTestMode)
                 NotificationService.shared.sendVerificationFailedNotification()
                 stage = .failure(result)
             }

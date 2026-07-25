@@ -1,16 +1,25 @@
 # BedLock
 
-A SwiftUI iOS app that helps you build the habit of making your bed: it
-verifies a photo of your bed each morning using Apple's Vision framework, and
-tracks a history of every attempt. It's designed to pair with iOS's own free
-**Screen Time → Downtime** feature for actual app restriction — see
-`FREE_LOCKING.md`.
+A SwiftUI iOS app that helps you build the habit of making your bed (and any
+other morning habits you want to track), gamified with XP, levels, streaks,
+badges, and quests. It verifies a photo of your bed each morning using
+Apple's Vision framework. BedLock does not and cannot lock or unlock other
+apps on your phone — it tracks your own verification streak and progress. To
+pair it with actual app restriction, see iOS's free **Screen Time →
+Downtime** feature, covered in `FREE_LOCKING.md`.
 
 ## What's included
 
-- **BedLock** — a single-target app (Dashboard, Schedule, Camera Verification,
-  History, and Settings screens), built with SwiftUI + the Observation
-  framework + NavigationStack, MVVM throughout.
+- **BedLock** — a single-target app with Dashboard, Progress, History, and
+  Settings tabs, built with SwiftUI + the Observation framework +
+  NavigationStack, MVVM throughout.
+- **Gamification**: a daily Morning Score (0-100) combining bed verification
+  with any custom habits you add, an XP/leveling system, current/longest
+  streak tracking, a calendar view, unlockable badges, and daily/weekly
+  quests — all computed from your own local data, nothing server-side.
+- **Custom habits**: add, edit, and reorder your own morning habits (Settings
+  → Habits) — BedLock ships with zero preset habits beyond bed verification
+  itself.
 - Modular bed-verification pipeline: `BedVerifying` protocol →
   `VisionBedVerificationService` (ships today, built on Apple's on-device
   `VNClassifyImageRequest` + `VNDetectRectanglesRequest`) →
@@ -61,17 +70,26 @@ full walkthrough** — it's the actual "locking" mechanism for this project.
 
 ## Using the app
 
-1. **Settings → Schedule**: set the reminder time, optional second reminder,
+1. **Settings → Habits**: add any custom morning habits you want tracked
+   (stretching, drinking water, journaling — anything). Each has its own XP
+   value and contributes to your daily Morning Score.
+2. **Settings → Schedule**: set the reminder time, optional second reminder,
    and active days.
-2. Every morning at the scheduled time, BedLock sends "Good morning! Make
-   your bed to unlock your phone." (You can also trigger this on demand via
-   Siri or the Shortcuts app — see `FREE_LOCKING.md`.)
-3. Open BedLock, tap **Make Your Bed to Unlock**, take a photo. If confidence
-   ≥ your threshold (default 85%, adjustable in Settings), you get "Nice job!
-   Your phone is unlocked." Otherwise you're asked to retake the photo.
-4. **Settings → Test Verification** runs the identical camera + verification
-   flow any time of day, ignoring the schedule.
-5. **History tab** shows every attempt: date, time, confidence, and
+3. Every morning at the scheduled time, BedLock sends "Good morning! Time to
+   verify your bed and keep your streak going." (You can also trigger this
+   on demand via Siri or the Shortcuts app — see `FREE_LOCKING.md`.)
+4. Open BedLock, tap **Verify Your Bed**, take a photo. If confidence ≥ your
+   threshold (default 60%, adjustable in Settings), you earn XP and your
+   streak continues. Otherwise you're asked to retake the photo.
+5. **Dashboard** shows today's Morning Score, level/XP progress, current and
+   longest streak, today's habit checklist, and quest progress — with
+   confetti on a perfect day or a new badge.
+6. **Progress tab** shows a streak calendar, monthly stats, and your
+   achievements grid.
+7. **Settings → Test Verification** runs the identical camera + verification
+   pipeline any time of day — useful for checking your camera/model, but it
+   never affects your real XP, streak, or score.
+8. **History tab** shows every attempt: date, time, confidence, and
    pass/fail, with TEST attempts flagged.
 
 ## Known limitation (by design, not a bug)
@@ -90,12 +108,13 @@ automatically once one is added (`CoreMLBedVerificationService.swift`).
 BedLock.xcodeproj
 BedLock/
   BedLockApp.swift
-  Managers/                  AppLockManager, ScheduleManager
-  Services/                  BedVerifying + Vision/CoreML implementations, CameraService
+  Managers/                  GamificationManager, HabitManager, ScheduleManager, ModelRetrainReminderManager
+  Services/                  BedVerifying + Vision/CoreML implementations, CameraService, ModelImportService
   Intents/                   VerifyBedMadeIntent, AppRouter, AppDependencies (Siri/Shortcuts)
   ViewModels/                one per screen, @Observable
-  Views/                     one per screen, SwiftUI
-  Shared/                    Models + PersistenceService + NotificationService
+  Views/                     one per screen, SwiftUI (Dashboard, Progress, Habits, History, Schedule, Settings, Camera, Confetti)
+  Shared/Models/             Habit, DailyProgress, Achievement, LevelInfo, Quest, ScheduleModel, UnlockHistoryEntry, VerificationResult
+  Shared/                    PersistenceService + NotificationService
   Resources/Assets.xcassets  AppIcon (placeholder) + AccentColor
   Info.plist
 ```

@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct HistoryView: View {
-    @Environment(AppLockManager.self) private var appLockManager
+    @Environment(GamificationManager.self) private var gamificationManager
 
     @State private var viewModel: HistoryViewModel?
     @State private var showingClearConfirmation = false
@@ -19,7 +19,7 @@ struct HistoryView: View {
                     ContentUnavailableView(
                         "No History Yet",
                         systemImage: "clock.arrow.circlepath",
-                        description: Text("Verified unlocks will show up here.")
+                        description: Text("Verification attempts will show up here.")
                     )
                 } else {
                     List {
@@ -59,7 +59,7 @@ struct HistoryView: View {
         }
         .task {
             if viewModel == nil {
-                viewModel = HistoryViewModel(appLockManager: appLockManager)
+                viewModel = HistoryViewModel(gamificationManager: gamificationManager)
             }
             viewModel?.refresh()
         }
@@ -131,5 +131,5 @@ private struct HistoryRow: View {
     NavigationStack {
         HistoryView()
     }
-    .environment(AppLockManager(persistence: PersistenceService()))
+    .environment(GamificationManager(persistence: PersistenceService(), habitManager: HabitManager(persistence: PersistenceService())))
 }

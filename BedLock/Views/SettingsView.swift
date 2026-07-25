@@ -91,6 +91,11 @@ struct SettingsView: View {
             } label: {
                 Label("Schedule", systemImage: "calendar.badge.clock")
             }
+            NavigationLink {
+                HabitsView()
+            } label: {
+                Label("Habits", systemImage: "checklist")
+            }
         }
     }
 
@@ -229,7 +234,7 @@ struct SettingsView: View {
             .buttonStyle(.borderedProminent)
             .tint(.purple)
         } footer: {
-            Text("Marks BedLock as locked immediately (ignoring the schedule), opens the camera, and runs the exact same verification used every morning.")
+            Text("Opens the camera and runs the exact same verification pipeline used every morning — but doesn't affect your real XP, streak, or score. Use it to check your camera and model are working.")
         }
     }
 

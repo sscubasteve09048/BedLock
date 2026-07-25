@@ -54,7 +54,7 @@ final class ScheduleManager {
 
             let content = UNMutableNotificationContent()
             content.title = "Good morning!"
-            content.body = "Make your bed to unlock your phone."
+            content.body = "Time to verify your bed and keep your streak going."
             content.sound = .default
 
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)

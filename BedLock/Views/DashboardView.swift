@@ -2,28 +2,36 @@
 //  DashboardView.swift
 //  BedLock
 //
-//  The home screen: shows BedLock's own "locked" status, the active reminder
-//  schedule at a glance, and a big call-to-action to verify and unlock. Actual
-//  app restriction comes from iOS's native Screen Time → Downtime feature,
-//  configured directly in Settings — see the info card below and
-//  FREE_LOCKING.md for the full setup.
+//  The home screen: today's morning score, level/XP, streak, today's habit
+//  checklist, quest progress, and the verification entry point. BedLock does
+//  not lock or unlock anything else on the device — this screen tracks your
+//  own verification streak and progress only.
+//
+//  NOTE: broken into small @ViewBuilder functions rather than one large
+//  `body` — a single body with this many nested views can make the Swift
+//  type-checker time out.
 //
 import SwiftUI
 
 struct DashboardView: View {
-    @Environment(AppLockManager.self) private var appLockManager
+    @Environment(GamificationManager.self) private var gamificationManager
+    @Environment(HabitManager.self) private var habitManager
     @Environment(PersistenceService.self) private var persistence
 
     @State private var viewModel: DashboardViewModel?
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
-                statusCard
+            VStack(spacing: 20) {
                 if let viewModel {
-                    scheduleSummaryCard(viewModel: viewModel)
+                    scoreCard(viewModel: viewModel)
+                    levelCard(viewModel: viewModel)
+                    streakCard(viewModel: viewModel)
+                    if !viewModel.activeHabits.isEmpty {
+                        habitsCard(viewModel: viewModel)
+                    }
+                    questsCard(viewModel: viewModel)
                 }
-                infoCard
                 Spacer(minLength: 12)
             }
             .padding()
@@ -33,7 +41,8 @@ struct DashboardView: View {
         .task {
             if viewModel == nil {
                 viewModel = DashboardViewModel(
-                    appLockManager: appLockManager,
+                    gamificationManager: gamificationManager,
+                    habitManager: habitManager,
                     persistence: persistence
                 )
             }
@@ -48,40 +57,57 @@ struct DashboardView: View {
         )) {
             CameraVerificationView(isTestMode: false)
         }
+        .overlay(
+            ConfettiView(isActive: Binding(
+                get: { gamificationManager.showConfetti },
+                set: { if !$0 { gamificationManager.dismissConfetti() } }
+            ))
+        )
     }
 
+    // MARK: - Score card
+
     @ViewBuilder
-    private var statusCard: some View {
+    private func scoreCard(viewModel: DashboardViewModel) -> some View {
         VStack(spacing: 16) {
             ZStack {
                 Circle()
-                    .fill(statusColor.opacity(0.15))
-                    .frame(width: 140, height: 140)
-                Image(systemName: (viewModel?.isLocked ?? false) ? "lock.fill" : "lock.open.fill")
-                    .font(.system(size: 56, weight: .semibold))
-                    .foregroundStyle(statusColor)
+                    .stroke(Color.secondary.opacity(0.15), lineWidth: 14)
+                Circle()
+                    .trim(from: 0, to: CGFloat(viewModel.todayScore) / 100)
+                    .stroke(scoreColor(viewModel: viewModel), style: StrokeStyle(lineWidth: 14, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .animation(.easeOut(duration: 0.6), value: viewModel.todayScore)
+                VStack(spacing: 2) {
+                    Text("\(viewModel.todayScore)")
+                        .font(.system(size: 40, weight: .bold, design: .rounded))
+                    Text("Morning Score")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
+            .frame(width: 160, height: 160)
             .padding(.top, 8)
 
-            Text((viewModel?.isLocked ?? false) ? "Phone Locked" : "Phone Unlocked")
-                .font(.title2.bold())
-
-            Text(viewModel?.lastVerificationText ?? "")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-
-            if viewModel?.isLocked ?? false {
+            if viewModel.isBedVerifiedToday {
+                Label("Bed Verified Today", systemImage: "checkmark.circle.fill")
+                    .font(.subheadline.bold())
+                    .foregroundStyle(.green)
+            } else {
                 Button {
-                    viewModel?.beginVerification()
+                    viewModel.beginVerification()
                 } label: {
-                    Label("Make Your Bed to Unlock", systemImage: "camera.fill")
+                    Label("Verify Your Bed", systemImage: "camera.fill")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(Color.accentColor)
             }
+
+            Text(viewModel.lastVerificationText)
+                .font(.caption)
+                .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
         .padding()
@@ -89,49 +115,142 @@ struct DashboardView: View {
         .shadow(color: .black.opacity(0.06), radius: 12, y: 6)
     }
 
-    private var statusColor: Color {
-        (viewModel?.isLocked ?? false) ? .red : .green
+    private func scoreColor(viewModel: DashboardViewModel) -> Color {
+        switch viewModel.todayScore {
+        case 100: return .green
+        case 50...: return .orange
+        default: return .red
+        }
     }
 
-    private func scheduleSummaryCard(viewModel: DashboardViewModel) -> some View {
-        NavigationLink {
-            ScheduleView()
-        } label: {
+    // MARK: - Level card
+
+    @ViewBuilder
+    private func levelCard(viewModel: DashboardViewModel) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Image(systemName: "calendar.badge.clock")
-                    .font(.title2)
-                    .foregroundStyle(Color.accentColor)
-                    .frame(width: 44)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Morning Reminder")
-                        .font(.subheadline.bold())
-                        .foregroundStyle(.primary)
-                    Text(viewModel.schedule.isEnabled ? viewModel.schedule.summary : "Disabled")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+                Label("Level \(viewModel.level.level)", systemImage: "star.fill")
+                    .font(.headline)
+                    .foregroundStyle(.yellow)
                 Spacer()
-                Image(systemName: "chevron.right")
+                Text("\(viewModel.level.xpIntoLevel) / \(viewModel.level.xpNeededForLevel) XP")
+                    .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            .padding()
-            .background(.background, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+            ProgressView(value: viewModel.level.progress)
+                .tint(.yellow)
+                .animation(.easeOut(duration: 0.5), value: viewModel.level.progress)
+        }
+        .padding()
+        .background(.background, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+    }
+
+    // MARK: - Streak card
+
+    @ViewBuilder
+    private func streakCard(viewModel: DashboardViewModel) -> some View {
+        HStack(spacing: 0) {
+            streakStat(value: "\(viewModel.currentStreak)", label: "Current Streak", icon: "flame.fill", color: .orange)
+            Divider().frame(height: 40)
+            streakStat(value: "\(viewModel.longestStreak)", label: "Longest Streak", icon: "trophy.fill", color: .yellow)
+        }
+        .padding()
+        .background(.background, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+    }
+
+    private func streakStat(value: String, label: String, icon: String, color: Color) -> some View {
+        VStack(spacing: 6) {
+            Image(systemName: icon)
+                .foregroundStyle(color)
+            Text(value)
+                .font(.title2.bold())
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    // MARK: - Habits card
+
+    @ViewBuilder
+    private func habitsCard(viewModel: DashboardViewModel) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Today's Habits")
+                .font(.headline)
+            ForEach(viewModel.activeHabits) { habit in
+                habitRow(habit: habit, viewModel: viewModel)
+            }
+        }
+        .padding()
+        .background(.background, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+    }
+
+    private func habitRow(habit: Habit, viewModel: DashboardViewModel) -> some View {
+        let completed = viewModel.isHabitCompleted(habit)
+        return Button {
+            withAnimation(.spring(response: 0.3)) {
+                viewModel.toggleHabit(habit)
+            }
+        } label: {
+            HStack {
+                Image(systemName: habit.iconName)
+                    .foregroundStyle(completed ? Color.green : Color.secondary)
+                    .frame(width: 28)
+                Text(habit.name)
+                    .foregroundStyle(.primary)
+                Spacer()
+                Text("+\(habit.xpValue) XP")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Image(systemName: completed ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(completed ? Color.green : Color.secondary)
+            }
         }
         .buttonStyle(.plain)
     }
 
-    private var infoCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Label("How locking works", systemImage: "info.circle.fill")
-                .font(.subheadline.bold())
-                .foregroundStyle(Color.accentColor)
-            Text("BedLock verifies your bed and tracks your streak here for free. To actually restrict other apps, turn on Screen Time → Downtime in Settings and add BedLock to Always Allowed — see FREE_LOCKING.md in the project for the full walkthrough.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+    // MARK: - Quests card
+
+    @ViewBuilder
+    private func questsCard(viewModel: DashboardViewModel) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text("Quests")
+                .font(.headline)
+            questRow(quest: viewModel.dailyQuest)
+            Divider()
+            questRow(quest: viewModel.weeklyChallenge)
         }
         .padding()
-        .background(Color.accentColor.opacity(0.08), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(.background, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+    }
+
+    private func questRow(quest: QuestProgress) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text(quest.title)
+                    .font(.subheadline.bold())
+                Spacer()
+                if quest.isComplete {
+                    Label("+\(quest.bonusXP) XP", systemImage: "checkmark.seal.fill")
+                        .font(.caption.bold())
+                        .foregroundStyle(.green)
+                } else {
+                    Text("\(quest.current)/\(quest.target)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            Text(quest.detail)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            ProgressView(value: quest.progress)
+                .tint(quest.isComplete ? .green : .accentColor)
+        }
     }
 }
 
@@ -140,5 +259,6 @@ struct DashboardView: View {
         DashboardView()
     }
     .environment(PersistenceService())
-    .environment(AppLockManager(persistence: PersistenceService()))
+    .environment(HabitManager(persistence: PersistenceService()))
+    .environment(GamificationManager(persistence: PersistenceService(), habitManager: HabitManager(persistence: PersistenceService())))
 }

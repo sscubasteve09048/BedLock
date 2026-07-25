@@ -2,9 +2,9 @@
 //  NotificationService.swift
 //  BedLock
 //
-//  Wraps UNUserNotificationCenter for both permission requests and posting the
-//  two local notifications BedLock sends: the morning wake-up prompt and the
-//  "you're unlocked" confirmation.
+//  Wraps UNUserNotificationCenter for both permission requests and posting
+//  BedLock's local notifications: the morning reminder and the "nice job"
+//  confirmation after a successful verification.
 //
 import Foundation
 import UserNotifications
@@ -26,30 +26,30 @@ final class NotificationService {
         }
     }
 
-    /// Fires immediately: "Good morning! Make your bed to unlock your phone."
-    func sendMorningLockNotification() {
+    /// Fires immediately: the morning reminder to verify your bed.
+    func sendMorningReminderNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Good morning!"
-        content.body = "Make your bed to unlock your phone."
+        content.body = "Time to verify your bed and keep your streak going."
         content.sound = .default
 
         let request = UNNotificationRequest(
-            identifier: "bedlock.morningLock.\(UUID().uuidString)",
+            identifier: "bedlock.morningReminder.\(UUID().uuidString)",
             content: content,
             trigger: nil
         )
         center.add(request)
     }
 
-    /// Fires immediately: "Nice job! Your phone is unlocked."
-    func sendUnlockedNotification() {
+    /// Fires immediately: a successful verification.
+    func sendVerifiedNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Nice job!"
-        content.body = "Your phone is unlocked."
+        content.body = "Your bed is verified. Keep the streak alive!"
         content.sound = .default
 
         let request = UNNotificationRequest(
-            identifier: "bedlock.unlocked.\(UUID().uuidString)",
+            identifier: "bedlock.verified.\(UUID().uuidString)",
             content: content,
             trigger: nil
         )

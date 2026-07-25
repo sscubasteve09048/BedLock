@@ -2,9 +2,9 @@
 //  CameraVerificationView.swift
 //  BedLock
 //
-//  The verification screen: "Make your bed to unlock your phone," camera
-//  capture, processing state, and success/failure results. Used both for the
-//  real morning unlock and for Settings > Test Verification (`isTestMode`).
+//  The verification screen: "Verify your bed is made," camera capture,
+//  processing state, and success/failure results. Used both for the real
+//  morning check-in and for Settings > Test Verification (`isTestMode`).
 //
 import SwiftUI
 import UIKit
@@ -13,7 +13,7 @@ struct CameraVerificationView: View {
     let isTestMode: Bool
 
     @Environment(\.dismiss) private var dismiss
-    @Environment(AppLockManager.self) private var appLockManager
+    @Environment(GamificationManager.self) private var gamificationManager
     @Environment(PersistenceService.self) private var persistence
 
     @State private var viewModel: CameraVerificationViewModel?
@@ -43,7 +43,7 @@ struct CameraVerificationView: View {
                     isTestMode: isTestMode,
                     verificationService: BedVerificationService(),
                     cameraService: CameraService(),
-                    appLockManager: appLockManager,
+                    gamificationManager: gamificationManager,
                     threshold: persistence.verificationThreshold
                 )
                 await viewModel?.start()
@@ -86,7 +86,7 @@ struct CameraVerificationView: View {
     }
 
     private var promptBanner: some View {
-        Text("Make your bed to unlock your phone.")
+        Text(isTestMode ? "Test verification — take a photo of your bed." : "Take a photo to verify your bed is made.")
             .font(.subheadline.bold())
             .foregroundStyle(.white)
             .padding(.horizontal, 16)
@@ -135,10 +135,16 @@ struct CameraVerificationView: View {
                 .font(.system(size: 72))
                 .foregroundStyle(success ? .green : .red)
 
-            Text(success ? "Nice job! Your phone is unlocked." : "Your bed doesn't appear to be made. Please try again.")
+            Text(resultTitle(success: success, viewModel: viewModel))
                 .font(.title3.bold())
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
+
+            if success && !viewModel.isTestMode {
+                Label("+\(GamificationManager.bedVerificationXP) XP", systemImage: "star.fill")
+                    .font(.headline)
+                    .foregroundStyle(.yellow)
+            }
 
             VStack(spacing: 4) {
                 Text("Confidence")
@@ -185,6 +191,13 @@ struct CameraVerificationView: View {
         }
     }
 
+    private func resultTitle(success: Bool, viewModel: CameraVerificationViewModel) -> String {
+        if !success {
+            return "Your bed doesn't appear to be made. Please try again."
+        }
+        return viewModel.isTestMode ? "Nice! The pipeline works." : "Nice job! Bed verified."
+    }
+
     private func errorView(message: String, viewModel: CameraVerificationViewModel) -> some View {
         VStack(spacing: 20) {
             Image(systemName: "exclamationmark.triangle.fill")
@@ -210,6 +223,6 @@ struct CameraVerificationView: View {
 
 #Preview {
     CameraVerificationView(isTestMode: true)
-        .environment(AppLockManager(persistence: PersistenceService()))
+        .environment(GamificationManager(persistence: PersistenceService(), habitManager: HabitManager(persistence: PersistenceService())))
         .environment(PersistenceService())
 }

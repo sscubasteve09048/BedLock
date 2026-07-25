@@ -2,8 +2,8 @@
 //  DashboardViewModel.swift
 //  BedLock
 //
-//  Drives the Dashboard screen: current lock state, schedule summary, and quick
-//  access to the verification flow.
+//  Drives the Dashboard screen: today's morning score, level/XP, streak,
+//  today's habit checklist, quests, and the verification entry point.
 //
 import Foundation
 import Observation
@@ -12,31 +12,48 @@ import Observation
 @Observable
 final class DashboardViewModel {
 
-    let appLockManager: AppLockManager
+    let gamificationManager: GamificationManager
+    let habitManager: HabitManager
     private let persistence: PersistenceService
 
     var schedule: ScheduleModel
     var showingVerification = false
 
-    init(appLockManager: AppLockManager, persistence: PersistenceService) {
-        self.appLockManager = appLockManager
+    init(gamificationManager: GamificationManager, habitManager: HabitManager, persistence: PersistenceService) {
+        self.gamificationManager = gamificationManager
+        self.habitManager = habitManager
         self.persistence = persistence
         self.schedule = persistence.loadSchedule()
     }
 
-    var isLocked: Bool { appLockManager.isLocked }
+    var isBedVerifiedToday: Bool { gamificationManager.isBedVerifiedToday }
+    var todayScore: Int { gamificationManager.todayScore }
+    var level: LevelInfo { gamificationManager.level }
+    var currentStreak: Int { gamificationManager.currentStreak }
+    var longestStreak: Int { gamificationManager.longestStreak }
+    var activeHabits: [Habit] { gamificationManager.activeHabits }
+    var dailyQuest: QuestProgress { gamificationManager.dailyQuest }
+    var weeklyChallenge: QuestProgress { gamificationManager.weeklyChallenge }
 
     var lastVerificationText: String {
-        guard let date = appLockManager.lastVerificationDate else {
+        guard let date = gamificationManager.lastVerificationDate else {
             return "No verification yet"
         }
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .abbreviated
-        return "Last unlocked \(formatter.localizedString(for: date, relativeTo: Date()))"
+        return "Last verified \(formatter.localizedString(for: date, relativeTo: Date()))"
+    }
+
+    func isHabitCompleted(_ habit: Habit) -> Bool {
+        gamificationManager.isHabitCompletedToday(habit)
+    }
+
+    func toggleHabit(_ habit: Habit) {
+        gamificationManager.toggleHabit(habit)
     }
 
     func refresh() {
-        appLockManager.syncWithSharedState()
+        gamificationManager.syncWithSharedState()
         schedule = persistence.loadSchedule()
     }
 

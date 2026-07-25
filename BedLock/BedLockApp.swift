@@ -5,8 +5,10 @@
 //  App entry point. Constructs the shared service/manager graph once and
 //  injects it down through the view hierarchy. Note there's no Screen Time /
 //  Family Controls manager here — BedLock is a single-target app that works
-//  entirely on a free Apple ID. Pair it with iOS's native Screen Time →
-//  Downtime feature for actual app restriction (see FREE_LOCKING.md).
+//  entirely on a free Apple ID and cannot lock or unlock other apps. Pair it
+//  with iOS's native Screen Time → Downtime feature for actual app
+//  restriction (see FREE_LOCKING.md); BedLock itself tracks your own
+//  verification streak, XP, and habits.
 //
 import SwiftUI
 
@@ -14,7 +16,8 @@ import SwiftUI
 struct BedLockApp: App {
 
     @State private var persistence: PersistenceService
-    @State private var appLockManager: AppLockManager
+    @State private var habitManager: HabitManager
+    @State private var gamificationManager: GamificationManager
     @State private var scheduleManager: ScheduleManager
     @State private var retrainReminderManager: ModelRetrainReminderManager
 
@@ -22,8 +25,10 @@ struct BedLockApp: App {
 
     init() {
         let persistence = PersistenceService()
+        let habitManager = HabitManager(persistence: persistence)
         _persistence = State(initialValue: persistence)
-        _appLockManager = State(initialValue: AppLockManager(persistence: persistence))
+        _habitManager = State(initialValue: habitManager)
+        _gamificationManager = State(initialValue: GamificationManager(persistence: persistence, habitManager: habitManager))
         _scheduleManager = State(initialValue: ScheduleManager(persistence: persistence))
         _retrainReminderManager = State(initialValue: ModelRetrainReminderManager(persistence: persistence))
     }
@@ -32,7 +37,8 @@ struct BedLockApp: App {
         WindowGroup {
             ContentView()
                 .environment(persistence)
-                .environment(appLockManager)
+                .environment(habitManager)
+                .environment(gamificationManager)
                 .environment(scheduleManager)
                 .environment(retrainReminderManager)
                 .environment(AppDependencies.shared.router)
@@ -45,7 +51,7 @@ struct BedLockApp: App {
                 }
                 .onChange(of: scenePhase) { _, newPhase in
                     if newPhase == .active {
-                        appLockManager.syncWithSharedState()
+                        gamificationManager.syncWithSharedState()
                         retrainReminderManager.applyReminderSettings()
                     }
                 }

@@ -19,6 +19,12 @@ struct ContentView: View {
                 }
             }
 
+            Tab("Progress", systemImage: "chart.bar.fill") {
+                NavigationStack {
+                    ProgressStatsView()
+                }
+            }
+
             Tab("History", systemImage: "clock.arrow.circlepath") {
                 NavigationStack {
                     HistoryView()
@@ -44,9 +50,12 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
-        .environment(PersistenceService())
-        .environment(AppLockManager(persistence: PersistenceService()))
-        .environment(ScheduleManager(persistence: PersistenceService()))
+    let persistence = PersistenceService()
+    let habitManager = HabitManager(persistence: persistence)
+    return ContentView()
+        .environment(persistence)
+        .environment(habitManager)
+        .environment(GamificationManager(persistence: persistence, habitManager: habitManager))
+        .environment(ScheduleManager(persistence: persistence))
         .environment(AppRouter())
 }

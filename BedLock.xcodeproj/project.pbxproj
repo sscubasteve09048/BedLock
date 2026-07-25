@@ -7,204 +7,237 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8AA297554F734E0FBB14F3E0 /* BedLockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E9BF3E7C844E8F8B01794E /* BedLockApp.swift */; };
-		271A49C001A54E84B1BD9E13 /* AppLockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A4EFA9468D4F9B97683DCB /* AppLockManager.swift */; };
-		BF7257A94B8A48F68BD5F524 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0112817E3A36400CACD38EB1 /* ScheduleManager.swift */; };
-		CA4DB75C2538492BA037C099 /* ModelRetrainReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AF0C786D5B4C19A24C3640 /* ModelRetrainReminderManager.swift */; };
-		CFFA71ED2BB242A48356B553 /* BedVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF8E84683BE4D8CA9006892 /* BedVerificationService.swift */; };
-		C90D2B4B1C5646548ECE0FD6 /* BedVerifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC054DA9680446228EC61A24 /* BedVerifying.swift */; };
-		D8E3CD713CE44C4C9943F1CE /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D13C62C2C11495AB7DBF19F /* CameraService.swift */; };
-		CDF987B48B3A4D13A25378F4 /* CoreMLBedVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7A4AFC0233485C9077505E /* CoreMLBedVerificationService.swift */; };
-		C3E0B109D0FA4BC4845B8FE0 /* VisionBedVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCC1CED437E42E3A2F4A32B /* VisionBedVerificationService.swift */; };
-		DD9D93860D0C41F5A39BCA2E /* ModelImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1D8C57C4E469598133858 /* ModelImportService.swift */; };
-		8267E306FD7B48F8A87ACAE4 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A125F7F4C64E4257A3A877AE /* AppRouter.swift */; };
-		708EDF0669EA4745BEA77220 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE69F338EAE347C78E554DD4 /* AppDependencies.swift */; };
-		4FFE49C5D40B484295AE5C5F /* VerifyBedMadeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4357538EA6B4D7BA40BD704 /* VerifyBedMadeIntent.swift */; };
-		58E4412262274410A62D0624 /* CameraVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA8A101CD574875ABDCFB60 /* CameraVerificationViewModel.swift */; };
-		C6C5DD8B1EE54DFA95853CFE /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290D64A5F51E4DB091D5839C /* DashboardViewModel.swift */; };
-		1B8CBC703A5E471AA1C9DFB1 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224DAD1D8292410D801FEDDD /* HistoryViewModel.swift */; };
-		F5A1968F702742AFADA96F6D /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629716DF699547F3852F786D /* ScheduleViewModel.swift */; };
-		771C6E91FAC741DE88036EEA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752B19ACFEC41F2AF07A348 /* SettingsViewModel.swift */; };
-		E4407A2F474D446CA6FB6BFF /* CameraCaptureRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F63A45D0D1496688DCC8DC /* CameraCaptureRepresentable.swift */; };
-		A2A587CC1B9048E883640122 /* CameraVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E93231A0F4447B85F77DC /* CameraVerificationView.swift */; };
-		E918A49683144445823262C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C84F0963254892A0AC33C4 /* ContentView.swift */; };
-		99C240B870CD4ABE8A60E7A0 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81598D145E384DEB8DD45580 /* DashboardView.swift */; };
-		C49D251CB3AA4184A5D32223 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0255232D6C4EB7A9272CBC /* HistoryView.swift */; };
-		A840CBBB9E2548A797EE7E87 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C16D0368D5499986E13547 /* ScheduleView.swift */; };
-		70A095ED11F44AC28BECE067 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E756E9037CF4E189274C42B /* SettingsView.swift */; };
-		A45417A2FDB34D6191B34D95 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4877D8F6C1A54703B236AE6B /* ScheduleModel.swift */; };
-		22CBF180287E4ACBA33117E1 /* UnlockHistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43710B6737B441E29B840140 /* UnlockHistoryEntry.swift */; };
-		B1390B8996D047A1BB598A7A /* VerificationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4EAF23C72D4AA7AF8420B4 /* VerificationResult.swift */; };
-		A3FDA45FB94E422A91075B28 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5B952AD5C14FE98369F323 /* NotificationService.swift */; };
-		CB55897481D540AABFE4EF98 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154BB4A4500942BA8050356D /* PersistenceService.swift */; };
-		A0154755667446ABA0161588 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 172300F447C642158670A9E3 /* Assets.xcassets */; };
-		85D878E357CB4A4CB56BBA2F /* AppIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94912756044240C88ABCF3A2 /* AppIntents.framework */; };
+		549CA800DAB14D74B8B37F58 /* BedLockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E8243270344909AF0EAFD /* BedLockApp.swift */; };
+		D044D9F96F184D75A9A7141F /* GamificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C89418857474B9A9D044742 /* GamificationManager.swift */; };
+		C68F955936A64A93B7444CD7 /* HabitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06459DE7F3A4499A0C28133 /* HabitManager.swift */; };
+		5BE69A6341144913BEBA1AE2 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2C5A15AB0449BAB7135923 /* ScheduleManager.swift */; };
+		9A692D7D2811457C80CC21AE /* ModelRetrainReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AE3D570CEB48D287E2AFEE /* ModelRetrainReminderManager.swift */; };
+		8ECECF0412F44863B27E5961 /* BedVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23202DEC1E646D596F846D4 /* BedVerificationService.swift */; };
+		3FC3AEDA890A4A30AE4D2E81 /* BedVerifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69BAF7A0B54F82B3CC00BC /* BedVerifying.swift */; };
+		8DCB385C89984C158665E908 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFAFB8459B644B78F47C77D /* CameraService.swift */; };
+		BBC7DDAC2966494A95C5C8B2 /* CoreMLBedVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8F81399442419E92668F38 /* CoreMLBedVerificationService.swift */; };
+		391A2F74E8E9447A9D509C2C /* VisionBedVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F12640E1942F4A0185349 /* VisionBedVerificationService.swift */; };
+		A5599D88894D4CA89BD03912 /* ModelImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B4E2ACE7D4069977035B6 /* ModelImportService.swift */; };
+		D93F842AC73643ACA122ACD6 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D8F312A194744ABE40B5B /* AppRouter.swift */; };
+		C4C4781E3C42447AB9F5B786 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD68A7E524D94923AEEAF857 /* AppDependencies.swift */; };
+		FBD24F964C704F538CFC78BF /* VerifyBedMadeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F85D0CC1F47C6911DD60E /* VerifyBedMadeIntent.swift */; };
+		2F935C21275E40D9A8B26CB0 /* CameraVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84499A47C8BB4FCC9EB8B332 /* CameraVerificationViewModel.swift */; };
+		1C9D6A990DC649958E94404A /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CF8C1891AF40FD828B1870 /* DashboardViewModel.swift */; };
+		EBEE5C75CDA244969CC032C8 /* HabitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA4392940648D68B40AD6A /* HabitsViewModel.swift */; };
+		DD43DCAB567A4081BE08B005 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BB7B5324624DF7A1BA5C63 /* HistoryViewModel.swift */; };
+		1E0C2C64FEB740E79D7328B3 /* ProgressStatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD1334133FD47D394CA548E /* ProgressStatsViewModel.swift */; };
+		3B016248241E43D697A255E8 /* ScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5182A379660F4A3E84D8B13F /* ScheduleViewModel.swift */; };
+		8320B91CFE2C42019654804B /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E76B2F86E3D4ED08991C963 /* SettingsViewModel.swift */; };
+		1377CAA8CAB94641BAFD1CAC /* CameraCaptureRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489F9B4709B2454EAB77F719 /* CameraCaptureRepresentable.swift */; };
+		835E18DEFD714B0CB184894D /* CameraVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B27759661B4636A219EAF4 /* CameraVerificationView.swift */; };
+		A76A2499E0E344C0A0FFB88B /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C84CB057AB4454B2770938 /* ConfettiView.swift */; };
+		7A909082DC00405F8C354DE6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAB62DF994E41F2969808EE /* ContentView.swift */; };
+		57DBA90651F9417C8F39660C /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D2F3926C174B30BA6A94E2 /* DashboardView.swift */; };
+		13F647DC4206461CA9FFA75C /* HabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8A584359354E66BCDB308F /* HabitsView.swift */; };
+		E1DD96D26B01453E96782128 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18557F6827C94805BFB38548 /* HistoryView.swift */; };
+		CCC6D4EAA4014C6AB5E837E8 /* ProgressStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED59A5164684A008178BD8A /* ProgressStatsView.swift */; };
+		E825BCFE234B46FDB81AE774 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33B00592B7487390409A33 /* ScheduleView.swift */; };
+		FA63DD6734AC47A3B90D1A00 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E7C22AECB94AEF856D3A38 /* SettingsView.swift */; };
+		71712D268A7B45FAA1143E0C /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28FC89B067F4B08BCA13A77 /* Achievement.swift */; };
+		D81756A027EB46FC93838A6C /* DailyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D0D80664FA4F49BDCDFA41 /* DailyProgress.swift */; };
+		A6DC55E2E4D74F69A9497AEC /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE68ACBDD94636A3638C84 /* Habit.swift */; };
+		4B24AFA8539E443DAF4D98DE /* LevelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1590503AF849FCA1B53473 /* LevelInfo.swift */; };
+		8D4663C83839487D964607AD /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AD064C1AA4DE2AC431D14 /* Quest.swift */; };
+		E1C17BCF0D0046899EBC05C5 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8314172A8CAF4C3A89E145E2 /* ScheduleModel.swift */; };
+		737431A1BAB44E2182EDCD64 /* UnlockHistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF3F2295A6C4EEA831E12C2 /* UnlockHistoryEntry.swift */; };
+		B6461A8B9AFC44A1BD09DB9C /* VerificationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B863087F566346629C5884E8 /* VerificationResult.swift */; };
+		56166596B3714237AF3DC97D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0A376FF3D443F3AFDDB130 /* NotificationService.swift */; };
+		58BCE714438048FF84684F31 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906377A2163E485CB77763AB /* PersistenceService.swift */; };
+		1D8BDE53734D42929F778F2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA4972394353459D8DC93DFE /* Assets.xcassets */; };
+		B96DDBF1CD704A888374F432 /* AppIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 798E2D77230F44A093192F4E /* AppIntents.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		88E9BF3E7C844E8F8B01794E /* BedLockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedLockApp.swift; sourceTree = "<group>"; };
-		D1A4EFA9468D4F9B97683DCB /* AppLockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLockManager.swift; sourceTree = "<group>"; };
-		0112817E3A36400CACD38EB1 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
-		53AF0C786D5B4C19A24C3640 /* ModelRetrainReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRetrainReminderManager.swift; sourceTree = "<group>"; };
-		6CF8E84683BE4D8CA9006892 /* BedVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedVerificationService.swift; sourceTree = "<group>"; };
-		FC054DA9680446228EC61A24 /* BedVerifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedVerifying.swift; sourceTree = "<group>"; };
-		2D13C62C2C11495AB7DBF19F /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
-		4B7A4AFC0233485C9077505E /* CoreMLBedVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMLBedVerificationService.swift; sourceTree = "<group>"; };
-		6BCC1CED437E42E3A2F4A32B /* VisionBedVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionBedVerificationService.swift; sourceTree = "<group>"; };
-		CFF1D8C57C4E469598133858 /* ModelImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelImportService.swift; sourceTree = "<group>"; };
-		A125F7F4C64E4257A3A877AE /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
-		AE69F338EAE347C78E554DD4 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
-		C4357538EA6B4D7BA40BD704 /* VerifyBedMadeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyBedMadeIntent.swift; sourceTree = "<group>"; };
-		FCA8A101CD574875ABDCFB60 /* CameraVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVerificationViewModel.swift; sourceTree = "<group>"; };
-		290D64A5F51E4DB091D5839C /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
-		224DAD1D8292410D801FEDDD /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
-		629716DF699547F3852F786D /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
-		C752B19ACFEC41F2AF07A348 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		D9F63A45D0D1496688DCC8DC /* CameraCaptureRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureRepresentable.swift; sourceTree = "<group>"; };
-		1D7E93231A0F4447B85F77DC /* CameraVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVerificationView.swift; sourceTree = "<group>"; };
-		42C84F0963254892A0AC33C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		81598D145E384DEB8DD45580 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		5E0255232D6C4EB7A9272CBC /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		C7C16D0368D5499986E13547 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
-		4E756E9037CF4E189274C42B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		4877D8F6C1A54703B236AE6B /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
-		43710B6737B441E29B840140 /* UnlockHistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockHistoryEntry.swift; sourceTree = "<group>"; };
-		8D4EAF23C72D4AA7AF8420B4 /* VerificationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationResult.swift; sourceTree = "<group>"; };
-		7E5B952AD5C14FE98369F323 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		154BB4A4500942BA8050356D /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
-		172300F447C642158670A9E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DB35511B42EE4AE3881D99BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		94912756044240C88ABCF3A2 /* AppIntents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppIntents.framework; path = System/Library/Frameworks/AppIntents.framework; sourceTree = SDKROOT; };
-		2EF901110E3D4DB78079262B /* BedLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BedLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B44E8243270344909AF0EAFD /* BedLockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedLockApp.swift; sourceTree = "<group>"; };
+		3C89418857474B9A9D044742 /* GamificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationManager.swift; sourceTree = "<group>"; };
+		F06459DE7F3A4499A0C28133 /* HabitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitManager.swift; sourceTree = "<group>"; };
+		5F2C5A15AB0449BAB7135923 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
+		E0AE3D570CEB48D287E2AFEE /* ModelRetrainReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRetrainReminderManager.swift; sourceTree = "<group>"; };
+		A23202DEC1E646D596F846D4 /* BedVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedVerificationService.swift; sourceTree = "<group>"; };
+		5C69BAF7A0B54F82B3CC00BC /* BedVerifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedVerifying.swift; sourceTree = "<group>"; };
+		CFFAFB8459B644B78F47C77D /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		8A8F81399442419E92668F38 /* CoreMLBedVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMLBedVerificationService.swift; sourceTree = "<group>"; };
+		E25F12640E1942F4A0185349 /* VisionBedVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionBedVerificationService.swift; sourceTree = "<group>"; };
+		DD5B4E2ACE7D4069977035B6 /* ModelImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelImportService.swift; sourceTree = "<group>"; };
+		687D8F312A194744ABE40B5B /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		CD68A7E524D94923AEEAF857 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		209F85D0CC1F47C6911DD60E /* VerifyBedMadeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyBedMadeIntent.swift; sourceTree = "<group>"; };
+		84499A47C8BB4FCC9EB8B332 /* CameraVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVerificationViewModel.swift; sourceTree = "<group>"; };
+		D2CF8C1891AF40FD828B1870 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		87FA4392940648D68B40AD6A /* HabitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewModel.swift; sourceTree = "<group>"; };
+		73BB7B5324624DF7A1BA5C63 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		FBD1334133FD47D394CA548E /* ProgressStatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStatsViewModel.swift; sourceTree = "<group>"; };
+		5182A379660F4A3E84D8B13F /* ScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewModel.swift; sourceTree = "<group>"; };
+		7E76B2F86E3D4ED08991C963 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		489F9B4709B2454EAB77F719 /* CameraCaptureRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureRepresentable.swift; sourceTree = "<group>"; };
+		54B27759661B4636A219EAF4 /* CameraVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVerificationView.swift; sourceTree = "<group>"; };
+		B4C84CB057AB4454B2770938 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
+		ECAB62DF994E41F2969808EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F6D2F3926C174B30BA6A94E2 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		0E8A584359354E66BCDB308F /* HabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsView.swift; sourceTree = "<group>"; };
+		18557F6827C94805BFB38548 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		7ED59A5164684A008178BD8A /* ProgressStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStatsView.swift; sourceTree = "<group>"; };
+		AC33B00592B7487390409A33 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		19E7C22AECB94AEF856D3A38 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D28FC89B067F4B08BCA13A77 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		00D0D80664FA4F49BDCDFA41 /* DailyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgress.swift; sourceTree = "<group>"; };
+		4FAE68ACBDD94636A3638C84 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		BC1590503AF849FCA1B53473 /* LevelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelInfo.swift; sourceTree = "<group>"; };
+		8A5AD064C1AA4DE2AC431D14 /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
+		8314172A8CAF4C3A89E145E2 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
+		3CF3F2295A6C4EEA831E12C2 /* UnlockHistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockHistoryEntry.swift; sourceTree = "<group>"; };
+		B863087F566346629C5884E8 /* VerificationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationResult.swift; sourceTree = "<group>"; };
+		7F0A376FF3D443F3AFDDB130 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		906377A2163E485CB77763AB /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		EA4972394353459D8DC93DFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C8AC50EB9A374A2F9C205679 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		798E2D77230F44A093192F4E /* AppIntents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppIntents.framework; path = System/Library/Frameworks/AppIntents.framework; sourceTree = SDKROOT; };
+		F62F9CF61E344A8A8611C27A /* BedLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BedLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2460C8592E5448B289D9FF8F /* Frameworks */ = {
+		8376AAD7680843458872E389 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85D878E357CB4A4CB56BBA2F /* AppIntents.framework in Frameworks */,
+				B96DDBF1CD704A888374F432 /* AppIntents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		79FB0063F2844FCAB1A3A8B8 = {
+		DB52231640204E3389AEF148 = {
 			isa = PBXGroup;
 			children = (
-				39C9B9D8861E413582EA8DDE /* BedLock */,
-				7EFC3C98C77C429EB85DF436 /* Products */,
+				163A3399FD454D5592178A49 /* BedLock */,
+				A04635EEA154434683E0A218 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7EFC3C98C77C429EB85DF436 /* Products */ = {
+		A04635EEA154434683E0A218 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2EF901110E3D4DB78079262B /* BedLock.app */,
+				F62F9CF61E344A8A8611C27A /* BedLock.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		513B4ECCB79B4D4C91F99952 /* Resources */ = {
+		CBBC5BE5CA2F4FC9933215BB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				172300F447C642158670A9E3 /* Assets.xcassets */,
+				EA4972394353459D8DC93DFE /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		382EEABD993F4DE2B3B2C9A6 /* Models */ = {
+		D14D341A922D4FABAAE9C7BC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4877D8F6C1A54703B236AE6B /* ScheduleModel.swift */,
-				43710B6737B441E29B840140 /* UnlockHistoryEntry.swift */,
-				8D4EAF23C72D4AA7AF8420B4 /* VerificationResult.swift */,
+				D28FC89B067F4B08BCA13A77 /* Achievement.swift */,
+				00D0D80664FA4F49BDCDFA41 /* DailyProgress.swift */,
+				4FAE68ACBDD94636A3638C84 /* Habit.swift */,
+				BC1590503AF849FCA1B53473 /* LevelInfo.swift */,
+				8A5AD064C1AA4DE2AC431D14 /* Quest.swift */,
+				8314172A8CAF4C3A89E145E2 /* ScheduleModel.swift */,
+				3CF3F2295A6C4EEA831E12C2 /* UnlockHistoryEntry.swift */,
+				B863087F566346629C5884E8 /* VerificationResult.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		F22B8F0AE56C40A6A3FFAAFA /* Shared */ = {
+		7967C2B802AA4F6F8AEE30BF /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				382EEABD993F4DE2B3B2C9A6 /* Models */,
-				7E5B952AD5C14FE98369F323 /* NotificationService.swift */,
-				154BB4A4500942BA8050356D /* PersistenceService.swift */,
+				D14D341A922D4FABAAE9C7BC /* Models */,
+				7F0A376FF3D443F3AFDDB130 /* NotificationService.swift */,
+				906377A2163E485CB77763AB /* PersistenceService.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		38905A08040B4CDA8F5F4FE8 /* Managers */ = {
+		67611622D7F744DD82A93491 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				D1A4EFA9468D4F9B97683DCB /* AppLockManager.swift */,
-				0112817E3A36400CACD38EB1 /* ScheduleManager.swift */,
-				53AF0C786D5B4C19A24C3640 /* ModelRetrainReminderManager.swift */,
+				3C89418857474B9A9D044742 /* GamificationManager.swift */,
+				F06459DE7F3A4499A0C28133 /* HabitManager.swift */,
+				5F2C5A15AB0449BAB7135923 /* ScheduleManager.swift */,
+				E0AE3D570CEB48D287E2AFEE /* ModelRetrainReminderManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		1A112719A3C04CDF810A27D1 /* Services */ = {
+		00431F2E542640D4B8825291 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				6CF8E84683BE4D8CA9006892 /* BedVerificationService.swift */,
-				FC054DA9680446228EC61A24 /* BedVerifying.swift */,
-				2D13C62C2C11495AB7DBF19F /* CameraService.swift */,
-				4B7A4AFC0233485C9077505E /* CoreMLBedVerificationService.swift */,
-				6BCC1CED437E42E3A2F4A32B /* VisionBedVerificationService.swift */,
-				CFF1D8C57C4E469598133858 /* ModelImportService.swift */,
+				A23202DEC1E646D596F846D4 /* BedVerificationService.swift */,
+				5C69BAF7A0B54F82B3CC00BC /* BedVerifying.swift */,
+				CFFAFB8459B644B78F47C77D /* CameraService.swift */,
+				8A8F81399442419E92668F38 /* CoreMLBedVerificationService.swift */,
+				E25F12640E1942F4A0185349 /* VisionBedVerificationService.swift */,
+				DD5B4E2ACE7D4069977035B6 /* ModelImportService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		3F48D827951E4ED5B7685FF0 /* Intents */ = {
+		E4D2636CEF1542EF8DBB6604 /* Intents */ = {
 			isa = PBXGroup;
 			children = (
-				A125F7F4C64E4257A3A877AE /* AppRouter.swift */,
-				AE69F338EAE347C78E554DD4 /* AppDependencies.swift */,
-				C4357538EA6B4D7BA40BD704 /* VerifyBedMadeIntent.swift */,
+				687D8F312A194744ABE40B5B /* AppRouter.swift */,
+				CD68A7E524D94923AEEAF857 /* AppDependencies.swift */,
+				209F85D0CC1F47C6911DD60E /* VerifyBedMadeIntent.swift */,
 			);
 			path = Intents;
 			sourceTree = "<group>";
 		};
-		1FD415FBD2844E58B5E05FBE /* ViewModels */ = {
+		F5BFE3C5AFEE472D9DDFFE6A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				FCA8A101CD574875ABDCFB60 /* CameraVerificationViewModel.swift */,
-				290D64A5F51E4DB091D5839C /* DashboardViewModel.swift */,
-				224DAD1D8292410D801FEDDD /* HistoryViewModel.swift */,
-				629716DF699547F3852F786D /* ScheduleViewModel.swift */,
-				C752B19ACFEC41F2AF07A348 /* SettingsViewModel.swift */,
+				84499A47C8BB4FCC9EB8B332 /* CameraVerificationViewModel.swift */,
+				D2CF8C1891AF40FD828B1870 /* DashboardViewModel.swift */,
+				87FA4392940648D68B40AD6A /* HabitsViewModel.swift */,
+				73BB7B5324624DF7A1BA5C63 /* HistoryViewModel.swift */,
+				FBD1334133FD47D394CA548E /* ProgressStatsViewModel.swift */,
+				5182A379660F4A3E84D8B13F /* ScheduleViewModel.swift */,
+				7E76B2F86E3D4ED08991C963 /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		256D23B318004595A712F974 /* Views */ = {
+		B044EDD1382D42CABC952B3B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D9F63A45D0D1496688DCC8DC /* CameraCaptureRepresentable.swift */,
-				1D7E93231A0F4447B85F77DC /* CameraVerificationView.swift */,
-				42C84F0963254892A0AC33C4 /* ContentView.swift */,
-				81598D145E384DEB8DD45580 /* DashboardView.swift */,
-				5E0255232D6C4EB7A9272CBC /* HistoryView.swift */,
-				C7C16D0368D5499986E13547 /* ScheduleView.swift */,
-				4E756E9037CF4E189274C42B /* SettingsView.swift */,
+				489F9B4709B2454EAB77F719 /* CameraCaptureRepresentable.swift */,
+				54B27759661B4636A219EAF4 /* CameraVerificationView.swift */,
+				B4C84CB057AB4454B2770938 /* ConfettiView.swift */,
+				ECAB62DF994E41F2969808EE /* ContentView.swift */,
+				F6D2F3926C174B30BA6A94E2 /* DashboardView.swift */,
+				0E8A584359354E66BCDB308F /* HabitsView.swift */,
+				18557F6827C94805BFB38548 /* HistoryView.swift */,
+				7ED59A5164684A008178BD8A /* ProgressStatsView.swift */,
+				AC33B00592B7487390409A33 /* ScheduleView.swift */,
+				19E7C22AECB94AEF856D3A38 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		39C9B9D8861E413582EA8DDE /* BedLock */ = {
+		163A3399FD454D5592178A49 /* BedLock */ = {
 			isa = PBXGroup;
 			children = (
-				88E9BF3E7C844E8F8B01794E /* BedLockApp.swift */,
-				38905A08040B4CDA8F5F4FE8 /* Managers */,
-				1A112719A3C04CDF810A27D1 /* Services */,
-				3F48D827951E4ED5B7685FF0 /* Intents */,
-				1FD415FBD2844E58B5E05FBE /* ViewModels */,
-				256D23B318004595A712F974 /* Views */,
-				F22B8F0AE56C40A6A3FFAAFA /* Shared */,
-				513B4ECCB79B4D4C91F99952 /* Resources */,
-				DB35511B42EE4AE3881D99BD /* Info.plist */,
+				B44E8243270344909AF0EAFD /* BedLockApp.swift */,
+				67611622D7F744DD82A93491 /* Managers */,
+				00431F2E542640D4B8825291 /* Services */,
+				E4D2636CEF1542EF8DBB6604 /* Intents */,
+				F5BFE3C5AFEE472D9DDFFE6A /* ViewModels */,
+				B044EDD1382D42CABC952B3B /* Views */,
+				7967C2B802AA4F6F8AEE30BF /* Shared */,
+				CBBC5BE5CA2F4FC9933215BB /* Resources */,
+				C8AC50EB9A374A2F9C205679 /* Info.plist */,
 			);
 			path = BedLock;
 			sourceTree = "<group>";
@@ -212,13 +245,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3AA446B38B4440879F1D9705 /* BedLock */ = {
+		2A01F0C964D4433D96BCA145 /* BedLock */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13BC19ECD4464F14B1B3D812 /* Build configuration list for PBXNativeTarget "BedLock" */;
+			buildConfigurationList = 95C07702D8CF450C864A585B /* Build configuration list for PBXNativeTarget "BedLock" */;
 			buildPhases = (
-				D40E2776714D4B4A8ED2B817 /* Sources */,
-				2460C8592E5448B289D9FF8F /* Frameworks */,
-				DB8790D6E8B24B9C8D5EF806 /* Resources */,
+				D77B47E2133D4E76B81DE95A /* Sources */,
+				8376AAD7680843458872E389 /* Frameworks */,
+				19CC325B134E45B682ACA588 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -226,25 +259,25 @@
 			);
 			name = BedLock;
 			productName = BedLock;
-			productReference = 2EF901110E3D4DB78079262B /* BedLock.app */;
+			productReference = F62F9CF61E344A8A8611C27A /* BedLock.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		61C909EA8FF3418C8622F238 /* Project object */ = {
+		CD1DDDA3A71546A2AA378AB2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					3AA446B38B4440879F1D9705 = {
+					2A01F0C964D4433D96BCA145 = {
 						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
-			buildConfigurationList = BF2A46F4F48A464088E19F11 /* Build configuration list for PBXProject "BedLock" */;
+			buildConfigurationList = 43456D81BB0D4D70B2C6031D /* Build configuration list for PBXProject "BedLock" */;
 			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -252,69 +285,80 @@
 				en,
 				Base,
 			);
-			mainGroup = 79FB0063F2844FCAB1A3A8B8;
-			productRefGroup = 7EFC3C98C77C429EB85DF436 /* Products */;
+			mainGroup = DB52231640204E3389AEF148;
+			productRefGroup = A04635EEA154434683E0A218 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3AA446B38B4440879F1D9705 /* BedLock */,
+				2A01F0C964D4433D96BCA145 /* BedLock */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		DB8790D6E8B24B9C8D5EF806 /* Resources */ = {
+		19CC325B134E45B682ACA588 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0154755667446ABA0161588 /* Assets.xcassets in Resources */,
+				1D8BDE53734D42929F778F2C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D40E2776714D4B4A8ED2B817 /* Sources */ = {
+		D77B47E2133D4E76B81DE95A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AA297554F734E0FBB14F3E0 /* BedLockApp.swift in Sources */,
-				271A49C001A54E84B1BD9E13 /* AppLockManager.swift in Sources */,
-				BF7257A94B8A48F68BD5F524 /* ScheduleManager.swift in Sources */,
-				CA4DB75C2538492BA037C099 /* ModelRetrainReminderManager.swift in Sources */,
-				CFFA71ED2BB242A48356B553 /* BedVerificationService.swift in Sources */,
-				C90D2B4B1C5646548ECE0FD6 /* BedVerifying.swift in Sources */,
-				D8E3CD713CE44C4C9943F1CE /* CameraService.swift in Sources */,
-				CDF987B48B3A4D13A25378F4 /* CoreMLBedVerificationService.swift in Sources */,
-				C3E0B109D0FA4BC4845B8FE0 /* VisionBedVerificationService.swift in Sources */,
-				DD9D93860D0C41F5A39BCA2E /* ModelImportService.swift in Sources */,
-				8267E306FD7B48F8A87ACAE4 /* AppRouter.swift in Sources */,
-				708EDF0669EA4745BEA77220 /* AppDependencies.swift in Sources */,
-				4FFE49C5D40B484295AE5C5F /* VerifyBedMadeIntent.swift in Sources */,
-				58E4412262274410A62D0624 /* CameraVerificationViewModel.swift in Sources */,
-				C6C5DD8B1EE54DFA95853CFE /* DashboardViewModel.swift in Sources */,
-				1B8CBC703A5E471AA1C9DFB1 /* HistoryViewModel.swift in Sources */,
-				F5A1968F702742AFADA96F6D /* ScheduleViewModel.swift in Sources */,
-				771C6E91FAC741DE88036EEA /* SettingsViewModel.swift in Sources */,
-				E4407A2F474D446CA6FB6BFF /* CameraCaptureRepresentable.swift in Sources */,
-				A2A587CC1B9048E883640122 /* CameraVerificationView.swift in Sources */,
-				E918A49683144445823262C2 /* ContentView.swift in Sources */,
-				99C240B870CD4ABE8A60E7A0 /* DashboardView.swift in Sources */,
-				C49D251CB3AA4184A5D32223 /* HistoryView.swift in Sources */,
-				A840CBBB9E2548A797EE7E87 /* ScheduleView.swift in Sources */,
-				70A095ED11F44AC28BECE067 /* SettingsView.swift in Sources */,
-				A45417A2FDB34D6191B34D95 /* ScheduleModel.swift in Sources */,
-				22CBF180287E4ACBA33117E1 /* UnlockHistoryEntry.swift in Sources */,
-				B1390B8996D047A1BB598A7A /* VerificationResult.swift in Sources */,
-				A3FDA45FB94E422A91075B28 /* NotificationService.swift in Sources */,
-				CB55897481D540AABFE4EF98 /* PersistenceService.swift in Sources */,
+				549CA800DAB14D74B8B37F58 /* BedLockApp.swift in Sources */,
+				D044D9F96F184D75A9A7141F /* GamificationManager.swift in Sources */,
+				C68F955936A64A93B7444CD7 /* HabitManager.swift in Sources */,
+				5BE69A6341144913BEBA1AE2 /* ScheduleManager.swift in Sources */,
+				9A692D7D2811457C80CC21AE /* ModelRetrainReminderManager.swift in Sources */,
+				8ECECF0412F44863B27E5961 /* BedVerificationService.swift in Sources */,
+				3FC3AEDA890A4A30AE4D2E81 /* BedVerifying.swift in Sources */,
+				8DCB385C89984C158665E908 /* CameraService.swift in Sources */,
+				BBC7DDAC2966494A95C5C8B2 /* CoreMLBedVerificationService.swift in Sources */,
+				391A2F74E8E9447A9D509C2C /* VisionBedVerificationService.swift in Sources */,
+				A5599D88894D4CA89BD03912 /* ModelImportService.swift in Sources */,
+				D93F842AC73643ACA122ACD6 /* AppRouter.swift in Sources */,
+				C4C4781E3C42447AB9F5B786 /* AppDependencies.swift in Sources */,
+				FBD24F964C704F538CFC78BF /* VerifyBedMadeIntent.swift in Sources */,
+				2F935C21275E40D9A8B26CB0 /* CameraVerificationViewModel.swift in Sources */,
+				1C9D6A990DC649958E94404A /* DashboardViewModel.swift in Sources */,
+				EBEE5C75CDA244969CC032C8 /* HabitsViewModel.swift in Sources */,
+				DD43DCAB567A4081BE08B005 /* HistoryViewModel.swift in Sources */,
+				1E0C2C64FEB740E79D7328B3 /* ProgressStatsViewModel.swift in Sources */,
+				3B016248241E43D697A255E8 /* ScheduleViewModel.swift in Sources */,
+				8320B91CFE2C42019654804B /* SettingsViewModel.swift in Sources */,
+				1377CAA8CAB94641BAFD1CAC /* CameraCaptureRepresentable.swift in Sources */,
+				835E18DEFD714B0CB184894D /* CameraVerificationView.swift in Sources */,
+				A76A2499E0E344C0A0FFB88B /* ConfettiView.swift in Sources */,
+				7A909082DC00405F8C354DE6 /* ContentView.swift in Sources */,
+				57DBA90651F9417C8F39660C /* DashboardView.swift in Sources */,
+				13F647DC4206461CA9FFA75C /* HabitsView.swift in Sources */,
+				E1DD96D26B01453E96782128 /* HistoryView.swift in Sources */,
+				CCC6D4EAA4014C6AB5E837E8 /* ProgressStatsView.swift in Sources */,
+				E825BCFE234B46FDB81AE774 /* ScheduleView.swift in Sources */,
+				FA63DD6734AC47A3B90D1A00 /* SettingsView.swift in Sources */,
+				71712D268A7B45FAA1143E0C /* Achievement.swift in Sources */,
+				D81756A027EB46FC93838A6C /* DailyProgress.swift in Sources */,
+				A6DC55E2E4D74F69A9497AEC /* Habit.swift in Sources */,
+				4B24AFA8539E443DAF4D98DE /* LevelInfo.swift in Sources */,
+				8D4663C83839487D964607AD /* Quest.swift in Sources */,
+				E1C17BCF0D0046899EBC05C5 /* ScheduleModel.swift in Sources */,
+				737431A1BAB44E2182EDCD64 /* UnlockHistoryEntry.swift in Sources */,
+				B6461A8B9AFC44A1BD09DB9C /* VerificationResult.swift in Sources */,
+				56166596B3714237AF3DC97D /* NotificationService.swift in Sources */,
+				58BCE714438048FF84684F31 /* PersistenceService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		3939D81EED19499BB4FEB6E9 /* Debug */ = {
+		D3C5855CAF01486A97B9CF18 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 
@@ -376,7 +420,7 @@
 			};
 			name = Debug;
 		};
-		0E99B257650F4A76BA793629 /* Release */ = {
+		AA76891B696D40728C2B5DE3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 
@@ -431,7 +475,7 @@
 			};
 			name = Release;
 		};
-		50D5CB9B97E042ADB7F0B249 /* Debug */ = {
+		E8CDF8A30DF541D9AD0EDDED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 
@@ -459,7 +503,7 @@
 			};
 			name = Debug;
 		};
-		5FC0743542BC408291E81CDF /* Release */ = {
+		2122A79A0C544EED8C0C6CD6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 
@@ -490,20 +534,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BF2A46F4F48A464088E19F11 /* Build configuration list for PBXProject "BedLock" */ = {
+		43456D81BB0D4D70B2C6031D /* Build configuration list for PBXProject "BedLock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3939D81EED19499BB4FEB6E9 /* Debug */,
-				0E99B257650F4A76BA793629 /* Release */,
+				D3C5855CAF01486A97B9CF18 /* Debug */,
+				AA76891B696D40728C2B5DE3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13BC19ECD4464F14B1B3D812 /* Build configuration list for PBXNativeTarget "BedLock" */ = {
+		95C07702D8CF450C864A585B /* Build configuration list for PBXNativeTarget "BedLock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				50D5CB9B97E042ADB7F0B249 /* Debug */,
-				5FC0743542BC408291E81CDF /* Release */,
+				E8CDF8A30DF541D9AD0EDDED /* Debug */,
+				2122A79A0C544EED8C0C6CD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -511,5 +555,5 @@
 /* End XCConfigurationList section */
 
 	};
-	rootObject = 61C909EA8FF3418C8622F238 /* Project object */;
+	rootObject = CD1DDDA3A71546A2AA378AB2 /* Project object */;
 }

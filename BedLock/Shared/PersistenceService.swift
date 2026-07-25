@@ -21,11 +21,15 @@ final class PersistenceService {
         static let schedule = "bedlock.schedule"
         static let history = "bedlock.history"
         static let lastVerificationDate = "bedlock.lastVerificationDate"
-        static let isRestrictionActive = "bedlock.isRestrictionActive"
         static let verificationThreshold = "bedlock.verificationThreshold"
         static let retrainReminderEnabled = "bedlock.retrainReminderEnabled"
         static let retrainIntervalDays = "bedlock.retrainIntervalDays"
         static let lastModelTrainingDate = "bedlock.lastModelTrainingDate"
+        static let habits = "bedlock.habits"
+        static let dailyProgress = "bedlock.dailyProgress"
+        static let totalXP = "bedlock.totalXP"
+        static let unlockedBadgeIDs = "bedlock.unlockedBadgeIDs"
+        static let longestStreak = "bedlock.longestStreak"
     }
 
     private let defaults: UserDefaults
@@ -49,7 +53,7 @@ final class PersistenceService {
         defaults.set(data, forKey: Keys.schedule)
     }
 
-    // MARK: - History
+    // MARK: - Verification attempt history (raw log, every attempt)
 
     func loadHistory() -> [UnlockHistoryEntry] {
         guard let data = defaults.data(forKey: Keys.history),
@@ -81,15 +85,6 @@ final class PersistenceService {
         set { defaults.set(newValue, forKey: Keys.lastVerificationDate) }
     }
 
-    /// Tracks BedLock's own notion of "locked" purely for the Dashboard/History
-    /// UI and habit-tracking — it does not itself restrict any other app. Real
-    /// app blocking is handled by iOS's native Screen Time Downtime feature,
-    /// configured directly in Settings (see FREE_LOCKING.md).
-    var isRestrictionActive: Bool {
-        get { defaults.bool(forKey: Keys.isRestrictionActive) }
-        set { defaults.set(newValue, forKey: Keys.isRestrictionActive) }
-    }
-
     var verificationThreshold: Double {
         get {
             let stored = defaults.double(forKey: Keys.verificationThreshold)
@@ -103,6 +98,57 @@ final class PersistenceService {
             return stored == 0 ? 0.6 : stored
         }
         set { defaults.set(newValue, forKey: Keys.verificationThreshold) }
+    }
+
+    // MARK: - Custom habits
+
+    func loadHabits() -> [Habit] {
+        guard let data = defaults.data(forKey: Keys.habits),
+              let decoded = try? JSONDecoder().decode([Habit].self, from: data) else {
+            return []
+        }
+        return decoded
+    }
+
+    func saveHabits(_ habits: [Habit]) {
+        guard let data = try? JSONEncoder().encode(habits) else { return }
+        defaults.set(data, forKey: Keys.habits)
+    }
+
+    // MARK: - Daily progress (one record per calendar day)
+
+    func loadDailyProgress() -> [DailyProgress] {
+        guard let data = defaults.data(forKey: Keys.dailyProgress),
+              let decoded = try? JSONDecoder().decode([DailyProgress].self, from: data) else {
+            return []
+        }
+        return decoded
+    }
+
+    func saveDailyProgress(_ records: [DailyProgress]) {
+        guard let data = try? JSONEncoder().encode(records) else { return }
+        defaults.set(data, forKey: Keys.dailyProgress)
+    }
+
+    // MARK: - XP, streak, badges
+
+    var totalXP: Int {
+        get { defaults.integer(forKey: Keys.totalXP) }
+        set { defaults.set(newValue, forKey: Keys.totalXP) }
+    }
+
+    var longestStreak: Int {
+        get { defaults.integer(forKey: Keys.longestStreak) }
+        set { defaults.set(newValue, forKey: Keys.longestStreak) }
+    }
+
+    func loadUnlockedBadgeIDs() -> Set<String> {
+        guard let array = defaults.array(forKey: Keys.unlockedBadgeIDs) as? [String] else { return [] }
+        return Set(array)
+    }
+
+    func saveUnlockedBadgeIDs(_ ids: Set<String>) {
+        defaults.set(Array(ids), forKey: Keys.unlockedBadgeIDs)
     }
 
     // MARK: - Custom model retrain reminder

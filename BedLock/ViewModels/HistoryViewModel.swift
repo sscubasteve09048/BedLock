@@ -11,14 +11,14 @@ import Observation
 @Observable
 final class HistoryViewModel {
 
-    private let appLockManager: AppLockManager
+    private let gamificationManager: GamificationManager
 
-    init(appLockManager: AppLockManager) {
-        self.appLockManager = appLockManager
+    init(gamificationManager: GamificationManager) {
+        self.gamificationManager = gamificationManager
     }
 
     var entries: [UnlockHistoryEntry] {
-        appLockManager.history
+        gamificationManager.history
     }
 
     var successCount: Int {
@@ -31,10 +31,10 @@ final class HistoryViewModel {
     }
 
     func refresh() {
-        appLockManager.syncWithSharedState()
+        gamificationManager.syncWithSharedState()
     }
 
     func clearHistory() {
-        appLockManager.clearHistory()
+        gamificationManager.clearHistory()
     }
 }

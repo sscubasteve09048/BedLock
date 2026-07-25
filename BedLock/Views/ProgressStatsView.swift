@@ -116,7 +116,7 @@ struct ProgressStatsView: View {
                     .fill(cellColor(status: status))
                 Text(dayNumber(for: day))
                     .font(.caption2)
-                    .foregroundStyle(status == .none ? .secondary : .white)
+                    .foregroundStyle(status == .none ? Color.secondary : Color.white)
             }
             .frame(height: 32)
         } else {
